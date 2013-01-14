@@ -138,6 +138,10 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 
 	}
 
+	@Override
+	public float[] getArmorModelsSize() {
+		return new float[] {0.1F, 0.5F};
+	}
 
 	@Override
 	public void render(Entity par1Entity, float par2, float par3, float par4,

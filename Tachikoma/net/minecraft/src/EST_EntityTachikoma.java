@@ -2,12 +2,17 @@ package net.minecraft.src;
 
 public class EST_EntityTachikoma extends EntitySpider {
 
+	/**
+	 * 腕を上に上げているかのフラグ、バージョンアップ時にフラグが使われていないかを確認すること。
+	 */
+	public static int flags_aimedBow = 7;
+
 	public int textureIndex;
 	public String textureEye;
 	public String textureName;
 	public int color;
 	public EST_Client client;
-	
+
 
 	public EST_EntityTachikoma(World world) {
 		super(world);
@@ -64,6 +69,10 @@ public class EST_EntityTachikoma extends EntitySpider {
 			if (textureIndex != ltextureindex) {
 				dataWatcher.updateObject(20, textureIndex);
 			}
+			boolean laimedBow = getAITarget() != null;
+			if (getAimedBow() != laimedBow) {
+				setFlag(flags_aimedBow, laimedBow);
+			}
 		}
 	}
 
@@ -110,7 +119,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 	@Override
 	public double getMountedYOffset() {
 		// 搭乗高
-		return super.getMountedYOffset() + 0.15F;
+		return super.getMountedYOffset() + 0.85F;
 	}
 
 	@Override
@@ -142,13 +151,23 @@ public class EST_EntityTachikoma extends EntitySpider {
 	@Override
 	public boolean interact(EntityPlayer entityplayer) {
 		if (!super.interact(entityplayer)) {
-			// RIDE-ON
-			if (entityToAttack != entityplayer) {
-				entityplayer.mountEntity(this);
-				return true;
+			if (worldObj.isRemote) {
+				// RIDE-ON
+				if (getAITarget() != entityplayer) {
+					entityplayer.mountEntity(this);
+					return true;
+				}
 			}
 		}
 		return false;
+	}
+
+
+	/**
+	 * 腕を上に上げる
+	 */
+	public boolean getAimedBow() {
+		return getFlag(flags_aimedBow);
 	}
 
 }

@@ -1,12 +1,10 @@
 package net.minecraft.src;
 
-import static net.minecraft.src.MMM_IModelBiped.*;
+import static net.minecraft.src.MMM_IModelCaps.*;
 import org.lwjgl.opengl.GL11;
 
 public class EST_RenderTachikoma extends RenderSpider {
 
-//	public static float modelHeight;
-//	public static float modelWidth;
 	public MMM_ModelArmors modelMain;
 	
 	public EST_RenderTachikoma() {
@@ -15,8 +13,6 @@ public class EST_RenderTachikoma extends RenderSpider {
 		modelMain.isModelAlphablend = true;
 		mainModel = modelMain;
 		setRenderPassModel(modelMain);
-//		modelHeight = ((EST_ModelTachikoma) mainModel).getHeight();
-//		modelWidth = ((EST_ModelTachikoma) mainModel).getWidth();
 	}
 
 	@Override
@@ -55,13 +51,11 @@ public class EST_RenderTachikoma extends RenderSpider {
 	@Override
 	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
 		modelMain.modelArmorInner = ((EST_EntityTachikoma)entity).client.textureModel0;
-		modelMain.setCapsValue(caps_aimedBow, ((EntityCreature) entity).entityToAttack != null);
+		modelMain.setCapsValue(caps_aimedBow, ((EST_EntityTachikoma)entity).getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, ((EntityCreature) entity).isSneaking());
 		modelMain.setCapsValue(caps_isRiding, ((EntityCreature) entity).isRiding());
 		modelMain.isAlphablend = true;
 		
-//		GL11.glEnable(3042 /* GL_BLEND */);
-//		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		super.doRender(entity, d, d1 - 0.2D, d2, f, f1);
 	}
 
