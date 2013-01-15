@@ -345,6 +345,11 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		return 1.0F;
 	}
 
+	@Override
+	public float getyOffset() {
+		return 1.53F;
+	}
+
 	public void equippedBlockPosition() {
 		// 手持ちブロックの表示位置
 		GL11.glTranslatef(0.0F, 0.1275F, -0.3125F);

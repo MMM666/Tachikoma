@@ -46,13 +46,11 @@ public class EST_EntityTachikoma extends EntitySpider {
 			}
 			int ltextureindex = dataWatcher.getWatchableObjectInt(20);
 			if (textureIndex != ltextureindex) {
-				String ls = MMM_TextureManager.getIndexToString(ltextureindex);
-				if (ls != null) {
-					if (!ls.isEmpty()) {
-						lflag = true;
-						textureIndex = ltextureindex;
-						textureName = ls;
-					}
+				MMM_TextureBoxServer lbox = MMM_TextureManager.getIndexToString(ltextureindex);
+				if (lbox != null && lbox.textureName != null) {
+					lflag = true;
+					textureIndex = ltextureindex;
+					textureName = lbox.textureName;
 				}
 			}
 			if (lflag) {
@@ -96,6 +94,8 @@ public class EST_EntityTachikoma extends EntitySpider {
 		color = nbttagcompound.getByte("TextureColor");
 		textureName = nbttagcompound.getString("TextureName");
 		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+		// 獲得したインデックスで再定義
+		textureName = MMM_TextureManager.getIndexToString(textureIndex).textureName;
 		// サーバー側では要らない
 //		texture = MMM_TextureManager.getTextureName(textureName, color);
 //		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
