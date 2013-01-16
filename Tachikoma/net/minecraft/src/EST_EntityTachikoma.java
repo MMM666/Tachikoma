@@ -16,7 +16,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	public EST_EntityTachikoma(World world) {
 		super(world);
-		textureName = "CV_Tachikoma";
+		textureName = mod_EST_Tachikoma.getRandomTexture();
 		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
 		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
 		texture = MMM_TextureManager.getTextureName(textureName, color);

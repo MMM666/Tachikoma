@@ -40,9 +40,11 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 
 	@Override
 	public void initModel(float psize, float pyoffset) {
+		// Arms
 		bipedHead = new MMM_ModelRenderer(this, 0, 0);
 		bipedHead.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.7F);
 		bipedHead.setRotationPoint(0F, -2F, -4F);
+		bipedHead.addChild(HeadMount);
 
 		head1 = new MMM_ModelRenderer(this, 0, 0);
 		head1.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.9F);
@@ -61,14 +63,19 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		bodyup.setRotationPoint(0F, -0.5F, 0F);
 		bipedBody.addChild(bodyup);
 
+		Arms[0] = (new MMM_ModelRenderer(this)).setRotationPointLM(-0.5F, 5F, 0F);
+		Arms[1] = (new MMM_ModelRenderer(this)).setRotationPointLM(0.5F, 5F, 0F);
+		
 		bipedRightArm = new MMM_ModelRenderer(this, 32, 23);
 		bipedRightArm.addBox(-2F, -0.5F, -1F, 2, 7, 2, psize);
 		bipedRightArm.setRotationPoint(-2F, -0.5F, 0F);// -6F);
+		bipedRightArm.addChild(Arms[0]);
 
 		bipedLeftArm = new MMM_ModelRenderer(this, 32, 23);
 		bipedLeftArm.mirror = true;
 		bipedLeftArm.addBox(0F, -0.5F, -1F, 2, 7, 2, psize);
 		bipedLeftArm.setRotationPoint(2F, 2.5F, 0F);// -6F);
+		bipedLeftArm.addChild(Arms[1]);
 
 		ArmBase = new MMM_ModelRenderer(this);
 		ArmBase.setRotationPoint(0F, 0F, -6F);
@@ -135,8 +142,46 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		mainFrame.addChild(bipedLeftLeg);
 		mainFrame.addChild(RightLeg1);
 		mainFrame.addChild(LeftLeg1);
-
 	}
+	
+	@Override
+	public void showAllParts() {
+		bipedHead.showModel = true;
+		head1.showModel = true;
+		head2.showModel = true;
+		bipedBody.showModel = true;
+		ArmBase.showModel = true;
+		bipedRightLeg.showModel = true;
+		bipedLeftLeg.showModel = true;
+		RightLeg1.showModel = true;
+		LeftLeg1.showModel = true;
+	}
+	
+	@Override
+	public int showArmorParts(int parts) {
+		// ŠZ‚Ì•\¦—p
+		boolean f;
+		// Š•
+		f = parts == 3 ? true : false;
+		bipedHead.showModel = f;
+		head1.showModel = f;
+		head2.showModel = f;
+		// ŠZ
+		f = parts == 2 ? true : false;
+		bipedBody.showModel = f;
+		ArmBase.showModel = f;
+		// ‹rb
+		f = parts == 1 ? true : false;
+		bipedRightLeg.showModel = f;
+		bipedLeftLeg.showModel = f;
+		// äa“–
+		f = parts == 0 ? true : false;
+		RightLeg1.showModel = f;
+		LeftLeg1.showModel = f;
+		
+		return -1;
+	}
+	
 
 	@Override
 	public float[] getArmorModelsSize() {
@@ -148,26 +193,12 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			float par5, float par6, float par7) {
 		setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
 		
-		head1.showModel = bipedHead.showModel;
-		head2.showModel = bipedHead.showModel;
-		RightLeg1.showModel = bipedRightLeg.showModel;
-		LeftLeg1.showModel = bipedLeftLeg.showModel;
+//		head1.showModel = bipedHead.showModel;
+//		head2.showModel = bipedHead.showModel;
+//		RightLeg1.showModel = bipedRightLeg.showModel;
+//		LeftLeg1.showModel = bipedLeftLeg.showModel;
 		
 		mainFrame.render(par7, (EntityLiving)par1Entity);
-		/*
-		bipedHead.render(par7);
-		bipedBody.render(par7);
-		// bipedRightArm.render(f5);
-		// bipedLeftArm.render(f5);
-		ArmBase.render(par7);
-		bipedRightLeg.render(par7);
-		bipedLeftLeg.render(par7);
-		bipedHeadwear.render(par7);
-		head1.render(par7);
-		head2.render(par7);
-		RightLeg1.render(par7);
-		LeftLeg1.render(par7);
-		*/
 	}
 
 	@Override
@@ -335,6 +366,41 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		}
 
 		// bipedRightArm.rotationPointZ = 0F;
+	}
+	
+	@Override
+	public void renderItems(EntityLiving pEntity, Render pRender) {
+		// è‚¿‚Ì•\¦
+		GL11.glPushMatrix();
+
+		// TODO:¡‚Íè”²‚«‚È‚Ì‚Å‚¿‚á‚ñ‚ÆÀ‘•‚·‚é‚±‚Æ
+		ItemStack litemstack;
+		EnumAction laction;
+		// R
+		litemstack = pEntity.getHeldItem();
+//		laction = (pEntity.maidDominantArm == 0 && pEntity.maidAvatar.getItemInUseCount() > 0) ? litemstack.getItemUseAction() : null;
+		laction = null;
+		Arms[0].loadMatrix().renderItems(pEntity, pRender, false, laction ,litemstack);
+		// L
+//		litemstack = pEntity.mstatSwingStatus[1].getItemStack(pEntity);
+//		laction = (pEntity.maidDominantArm == 1 && pEntity.maidAvatar.getItemInUseCount() > 0) ? litemstack.getItemUseAction() : null;
+//		Arms[1].loadMatrix().renderItems(pEntity, pRender, false, laction, litemstack);
+		
+		if (modelCaps != null) {
+			// “ª•”‘•ü•i
+			boolean lcamo = modelCaps.getCapsValueBoolean(caps_isCamouflage);
+			boolean lplant = modelCaps.getCapsValueBoolean(caps_isPlanter);
+			if (lcamo || lplant) {
+				HeadMount.loadMatrix();
+				if (lplant) {
+					GL11.glTranslatef(0F, -0.56F, 0F);
+				}
+				HeadMount.renderItems(pEntity, pRender, true, null, (ItemStack)modelCaps.getCapsValue(caps_HeadMount));
+			}
+		}
+		
+		GL11.glPopMatrix();
+
 	}
 
 	public float getHeight() {
