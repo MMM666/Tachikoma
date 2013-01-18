@@ -1,4 +1,4 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
+ï»¿// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3) braces deadcode 
 
@@ -128,7 +128,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		BUnitR.setRotationPoint(0F, -2.5F, 0F);
 		bodyup.addChild(BUnitR);
 
-		// g‚Á‚Ä‚¢‚È‚¢•”•i
+		// ä½¿ã£ã¦ã„ãªã„éƒ¨å“
 		bipedHeadwear.isHidden = true;
 		
 		mainFrame = new MMM_ModelRenderer(this, 0, 0);
@@ -159,22 +159,22 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 	
 	@Override
 	public int showArmorParts(int parts) {
-		// ŠZ‚Ì•\¦—p
+		// é§ã®è¡¨ç¤ºç”¨
 		boolean f;
-		// Š•
+		// å…œ
 		f = parts == 3 ? true : false;
 		bipedHead.showModel = f;
 		head1.showModel = f;
 		head2.showModel = f;
-		// ŠZ
+		// é§
 		f = parts == 2 ? true : false;
 		bipedBody.showModel = f;
 		ArmBase.showModel = f;
-		// ‹rb
+		// è„šç”²
 		f = parts == 1 ? true : false;
 		bipedRightLeg.showModel = f;
 		bipedLeftLeg.showModel = f;
-		// äa“–
+		// è‡‘å½“
 		f = parts == 0 ? true : false;
 		RightLeg1.showModel = f;
 		LeftLeg1.showModel = f;
@@ -245,7 +245,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		bipedLeftArm.rotateAngleX -= 0.5F;
 
 		if (onGround > -9990F && !aimedBow) {
-			// ˜rU‚è
+			// è…•æŒ¯ã‚Š
 			float f6 = onGround;
 			bipedBody.rotateAngleY = MathHelper
 					.sin(MathHelper.sqrt_float(f6) * 3.141593F * 2.0F) * 0.2F;
@@ -277,7 +277,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		}
 
 		if (isSneak) {
-			// ‚µ‚á‚ª‚İ
+			// ã—ã‚ƒãŒã¿
 			bipedHead.rotationPointY = head1.rotationPointY = head2.rotationPointY = 0.5F;
 			bipedBody.rotationPointY = 4F;
 			bodyup.rotateAngleX = -0.5F;
@@ -297,7 +297,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftLeg.rotateAngleZ -= 0.3F;
 			LeftLeg1.rotateAngleZ -= 0.3F;
 		} else {
-			// ’Êí—§‚¿
+			// é€šå¸¸ç«‹ã¡
 			bipedHead.rotationPointY = head1.rotationPointY = head2.rotationPointY = -0.5F;
 			bipedBody.rotationPointY = 3F;
 			bodyup.rotateAngleX = 0.0F;
@@ -311,7 +311,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftLeg.rotationPointZ = -3F;
 		}
 		if (isRiding) {
-			// æ‚è•¨‚Éæ‚Á‚Ä‚¢‚é
+			// ä¹—ã‚Šç‰©ã«ä¹—ã£ã¦ã„ã‚‹
 			bipedHead.rotationPointY = head1.rotationPointY = head2.rotationPointY = 1.5F;
 			bipedBody.rotationPointY = 5F;
 			bipedRightArm.rotationPointY = 7F;
@@ -329,7 +329,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		}
 
 		if (isWait) {
-			// ‘Ò‹@ó‘Ô‚Ì“Á•Ê•\¦
+			// å¾…æ©ŸçŠ¶æ…‹ã®ç‰¹åˆ¥è¡¨ç¤º
 			bipedRightArm.rotateAngleX = MathHelper.sin(par3 * 0.067F) * 0.05F - 0.7F;
 			bipedRightArm.rotateAngleY = 0.0F;
 			bipedRightArm.rotateAngleZ = -0.4F;
@@ -338,7 +338,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftArm.rotateAngleZ = 0.4F;
 		} else {
 			if (aimedBow) {
-				// ‹|\‚¦
+				// å¼“æ§‹ãˆ
 				float f6 = MathHelper.sin(onGround * 3.141593F);
 				float f7 = MathHelper.sin((1.0F - (1.0F - onGround)
 						* (1.0F - onGround)) * 3.141593F);
@@ -355,7 +355,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 				bipedRightArm.rotateAngleX += MathHelper.sin(par3 * 0.067F) * 0.05F;
 				bipedLeftArm.rotateAngleX -= MathHelper.sin(par3 * 0.067F) * 0.05F;
 			} else {
-				// ’Êí
+				// é€šå¸¸
 				bipedRightArm.rotateAngleZ += 0.5F;
 				bipedLeftArm.rotateAngleZ -= 0.5F;
 				bipedRightArm.rotateAngleZ += MathHelper.cos(par3 * 0.09F) * 0.05F + 0.05F;
@@ -370,10 +370,10 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 	
 	@Override
 	public void renderItems(EntityLiving pEntity, Render pRender) {
-		// è‚¿‚Ì•\¦
+		// æ‰‹æŒã¡ã®è¡¨ç¤º
 		GL11.glPushMatrix();
 
-		// TODO:¡‚Íè”²‚«‚È‚Ì‚Å‚¿‚á‚ñ‚ÆÀ‘•‚·‚é‚±‚Æ
+		// TODO:ä»Šã¯æ‰‹æŠœããªã®ã§ã¡ã‚ƒã‚“ã¨å®Ÿè£…ã™ã‚‹ã“ã¨
 		ItemStack litemstack;
 		EnumAction laction;
 		// R
@@ -387,7 +387,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 //		Arms[1].loadMatrix().renderItems(pEntity, pRender, false, laction, litemstack);
 		
 		if (modelCaps != null) {
-			// “ª•”‘•ü•i
+			// é ­éƒ¨è£…é£¾å“
 			boolean lcamo = modelCaps.getCapsValueBoolean(caps_isCamouflage);
 			boolean lplant = modelCaps.getCapsValueBoolean(caps_isPlanter);
 			if (lcamo || lplant) {
@@ -417,22 +417,22 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 	}
 
 	public void equippedBlockPosition() {
-		// è‚¿ƒuƒƒbƒN‚Ì•\¦ˆÊ’u
+		// æ‰‹æŒã¡ãƒ–ãƒ­ãƒƒã‚¯ã®è¡¨ç¤ºä½ç½®
 		GL11.glTranslatef(0.0F, 0.1275F, -0.3125F);
 	}
 
 	public void equippedItemPosition3D() {
-		// è‚¿‚RDƒAƒCƒeƒ€‚Ì•\¦ˆÊ’u
+		// æ‰‹æŒã¡ï¼“Dã‚¢ã‚¤ãƒ†ãƒ ã®è¡¨ç¤ºä½ç½®
 		GL11.glTranslatef(0.05F, 0.1000F, -0.30F);
 	}
 
 	public void equippedItemPosition() {
-		// è‚¿ƒAƒCƒeƒ€‚Ì•\¦ˆÊ’u
+		// æ‰‹æŒã¡ã‚¢ã‚¤ãƒ†ãƒ ã®è¡¨ç¤ºä½ç½®
 		GL11.glTranslatef(0.05F, 0.1200F, -0.0875F);
 	}
 
 	public void equippedItemBow() {
-		// è‚¿‹|‚Ì•\¦ˆÊ’u
+		// æ‰‹æŒã¡å¼“ã®è¡¨ç¤ºä½ç½®
 		GL11.glTranslatef(-0.05F, 0.085F, -0.4F);
 	}
 

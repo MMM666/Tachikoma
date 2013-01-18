@@ -1,4 +1,4 @@
-package net.minecraft.src;
+ï»¿package net.minecraft.src;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,13 +45,13 @@ public class mod_EST_Tachikoma extends BaseMod {
 
 	@Override
 	public String getPriorities() {
-		// MMMLib‚ğ—v‹
+		// MMMLibã‚’è¦æ±‚
 		return "required-after:mod_MMM_MMMLib";
 	}
 
 	@Override
 	public void load() {
-		// ƒ^ƒ`ƒRƒ}Œn‚Ìƒ‚ƒfƒ‹‚ğ“Ç‚İ‚İ
+		// ã‚¿ãƒã‚³ãƒç³»ã®ãƒ¢ãƒ‡ãƒ«ã‚’èª­ã¿è¾¼ã¿
 		textures = selectModels.split(",");
 		MMM_FileManager.getModFile("Tachikoma", "Tachikoma");
 		MMM_TextureManager.addSearch("Tachikoma", "/mob/Tachikoma/", "EST_Model_");
@@ -60,12 +60,12 @@ public class mod_EST_Tachikoma extends BaseMod {
 	@Override
 	public void modsLoaded() {
 		if (isSpiderForm) {
-			// ’uŠ·‚¦
+			// ç½®æ›ãˆ
 			Entity entity = EntityList.createEntityByName(entityName, null);
 			int id = EntityList.getEntityID(entity);
 			ModLoader.registerEntityID(EST_EntityTachikoma.class, entityName, id);
 			
-			// ƒoƒCƒI[ƒ€‚ÌƒXƒ|[ƒ“ƒŠƒXƒg‚ğ’u‚«Š·‚¦
+			// ãƒã‚¤ã‚ªãƒ¼ãƒ ã®ã‚¹ãƒãƒ¼ãƒ³ãƒªã‚¹ãƒˆã‚’ç½®ãæ›ãˆ
 			for (int i = 0; i < BiomeGenBase.biomeList.length; i++) {
 				if (BiomeGenBase.biomeList[i] != null) {
 					List<SpawnListEntry> list1 = BiomeGenBase.biomeList[i].spawnableMonsterList;

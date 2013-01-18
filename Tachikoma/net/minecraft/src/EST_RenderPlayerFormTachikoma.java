@@ -1,4 +1,4 @@
-package net.minecraft.src;
+ï»¿package net.minecraft.src;
 
 import org.lwjgl.opengl.GL11;
 
@@ -14,7 +14,7 @@ public class EST_RenderPlayerFormTachikoma extends RenderPlayer {
 	public EST_RenderPlayerFormTachikoma() {
 		super();
 
-		// ƒ‚ƒfƒ‹‚Ì’u‚«Š·‚¦
+		// ãƒ¢ãƒ‡ãƒ«ã®ç½®ãæ›ãˆ
 		modelBipedMain = new EST_ModelTachikoma(0.0F);
 		modelArmorChestplate = new EST_ModelTachikoma(1.0F);
 		modelArmor = new EST_ModelTachikoma(0.5F);
@@ -32,7 +32,7 @@ public class EST_RenderPlayerFormTachikoma extends RenderPlayer {
 
 	@Override
 	protected int setArmorModel(EntityPlayer entityplayer, int i, float f) {
-		// –Ê“|‚¾‚©‚çŠZ‚Í”ñ•\¦
+		// é¢å€’ã ã‹ã‚‰é§ã¯éè¡¨ç¤º
 		return -1;
 	}
 
@@ -56,7 +56,7 @@ public class EST_RenderPlayerFormTachikoma extends RenderPlayer {
 
 	@Override
 	protected void renderSpecials(EntityPlayer par1EntityPlayer, float par2) {
-		// ‚Ü‚ñ‚Ü
+		// ã¾ã‚“ã¾
 		// super.renderEquippedItems(par1EntityPlayer, par2);
 		ItemStack itemstack = par1EntityPlayer.inventory.armorItemInSlot(3);
 

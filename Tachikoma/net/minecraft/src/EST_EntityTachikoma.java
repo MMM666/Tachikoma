@@ -1,9 +1,9 @@
-package net.minecraft.src;
+ï»¿package net.minecraft.src;
 
 public class EST_EntityTachikoma extends EntitySpider {
 
 	/**
-	 * ˜r‚ğã‚Éã‚°‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒOAƒo[ƒWƒ‡ƒ“ƒAƒbƒv‚Éƒtƒ‰ƒO‚ªg‚í‚ê‚Ä‚¢‚È‚¢‚©‚ğŠm”F‚·‚é‚±‚ÆB
+	 * è…•ã‚’ä¸Šã«ä¸Šã’ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°ã€ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—æ™‚ã«ãƒ•ãƒ©ã‚°ãŒä½¿ã‚ã‚Œã¦ã„ãªã„ã‹ã‚’ç¢ºèªã™ã‚‹ã“ã¨ã€‚
 	 */
 	public static int flags_aimedBow = 7;
 
@@ -26,7 +26,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 			client = new EST_Client(this);
 			client.setModel(textureName);
 		}
-		// TODO:ƒ}ƒ‹ƒ`”»’è‚µ‚ê
+		// TODO:ãƒãƒ«ãƒåˆ¤å®šã—ã‚Œ
 //		if (mod_EST_Tachikoma.changeMobSize) {
 //			setSize(EST_RenderTachikoma.modelWidth, EST_RenderTachikoma.modelHeight);
 //		}
@@ -94,9 +94,9 @@ public class EST_EntityTachikoma extends EntitySpider {
 		color = nbttagcompound.getByte("TextureColor");
 		textureName = nbttagcompound.getString("TextureName");
 		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-		// Šl“¾‚µ‚½ƒCƒ“ƒfƒbƒNƒX‚ÅÄ’è‹`
+		// ç²å¾—ã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã§å†å®šç¾©
 		textureName = MMM_TextureManager.getIndexToString(textureIndex).textureName;
-		// ƒT[ƒo[‘¤‚Å‚Í—v‚ç‚È‚¢
+		// ã‚µãƒ¼ãƒãƒ¼å´ã§ã¯è¦ã‚‰ãªã„
 //		texture = MMM_TextureManager.getTextureName(textureName, color);
 //		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
 	}
@@ -118,13 +118,13 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	@Override
 	public double getMountedYOffset() {
-		// “‹æ‚
+		// æ­ä¹—é«˜
 		return super.getMountedYOffset() + 0.85F;
 	}
 
 	@Override
 	public void updateRiderPosition() {
-		// “‹æˆÊ’u
+		// æ­ä¹—ä½ç½®
 		if (riddenByEntity == null) {
 			return;
 		} else {
@@ -140,7 +140,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	@Override
 	protected Entity findPlayerToAttack() {
-		// “‹æÒ‚Íõ“G‘ÎÛŠO
+		// æ­ä¹—è€…ã¯ç´¢æ•µå¯¾è±¡å¤–
 		Entity entity = super.findPlayerToAttack();
 		if (entity == riddenByEntity) {
 			entity = null;
@@ -164,7 +164,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 
 	/**
-	 * ˜r‚ğã‚Éã‚°‚é
+	 * è…•ã‚’ä¸Šã«ä¸Šã’ã‚‹
 	 */
 	public boolean getAimedBow() {
 		return getFlag(flags_aimedBow);
