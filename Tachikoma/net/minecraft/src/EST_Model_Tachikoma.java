@@ -45,24 +45,24 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		bipedHead.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.7F);
 		bipedHead.setRotationPoint(0F, -2F, -4F);
 		bipedHead.addChild(HeadMount);
-
+		
 		head1 = new MMM_ModelRenderer(this, 0, 0);
 		head1.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.9F);
 		head1.setRotationPoint(4F, -2F, 1F);
-
+		
 		head2 = new MMM_ModelRenderer(this, 0, 0);
 		head2.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.9F);
 		head2.setRotationPoint(-4F, -2F, 1F);
-
+		
 		bipedBody = new MMM_ModelRenderer(this, 0, 16);
 		bipedBody.addBox(-4F, -2.5F, -4F, 8, 5, 8, psize + 1.2F);
 		bipedBody.setRotationPoint(0F, 0F, 0F);
-
+		
 		bodyup = new MMM_ModelRenderer(this, 1, 17);
 		bodyup.addBox(-3.5F, -3F, -3.5F, 7, 2, 7, psize + 1.2F);
 		bodyup.setRotationPoint(0F, -0.5F, 0F);
 		bipedBody.addChild(bodyup);
-
+		
 		Arms[0] = (new MMM_ModelRenderer(this)).setRotationPointLM(-0.5F, 5F, 0F);
 		Arms[1] = (new MMM_ModelRenderer(this)).setRotationPointLM(0.5F, 5F, 0F);
 		
@@ -70,64 +70,64 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		bipedRightArm.addBox(-2F, -0.5F, -1F, 2, 7, 2, psize);
 		bipedRightArm.setRotationPoint(-2F, -0.5F, 0F);// -6F);
 		bipedRightArm.addChild(Arms[0]);
-
+		
 		bipedLeftArm = new MMM_ModelRenderer(this, 32, 23);
 		bipedLeftArm.mirror = true;
 		bipedLeftArm.addBox(0F, -0.5F, -1F, 2, 7, 2, psize);
 		bipedLeftArm.setRotationPoint(2F, 2.5F, 0F);// -6F);
 		bipedLeftArm.addChild(Arms[1]);
-
+		
 		ArmBase = new MMM_ModelRenderer(this);
 		ArmBase.setRotationPoint(0F, 0F, -6F);
 		ArmBase.addChild(bipedRightArm);
 		ArmBase.addChild(bipedLeftArm);
-
+		
 		bipedRightLeg = new MMM_ModelRenderer(this, 40, 19);
 		bipedRightLeg.addBox(-1.5F, 0F, -1.5F, 3, 10, 3, psize);
 		bipedRightLeg.setRotationPoint(-5F, 3F, -2F);
-
+		
 		bipedLeftLeg = new MMM_ModelRenderer(this, 40, 19);
 		bipedLeftLeg.mirror = true;
 		bipedLeftLeg.addBox(-1.5F, 0F, -1.5F, 3, 10, 3, psize);
 		bipedLeftLeg.setRotationPoint(5F, 3F, -2F);
-
+		
 		RightLeg1 = new MMM_ModelRenderer(this, 40, 19);
 		RightLeg1.addBox(-1.5F, 0F, -1.5F, 3, 10, 3, psize);
 		RightLeg1.setRotationPoint(-5F, 3F, 3F);
-
+		
 		LeftLeg1 = new MMM_ModelRenderer(this, 40, 19);
 		LeftLeg1.mirror = true;
 		LeftLeg1.addBox(-1.5F, 0F, -1.5F, 3, 10, 3, psize);
 		LeftLeg1.setRotationPoint(5F, 3F, 3F);
-
+		
 		backpack = new MMM_ModelRenderer(this, 32, 0);
 		backpack.addBox(-3F, -7.8F, 6.5F, 6, 8, 6, psize + 1.3F);
 		backpack.setRotationPoint(0F, -2.3F, 0F);
 		backpack.rotateAngleX = 0.122F;
 		bodyup.addChild(backpack);
-
+		
 		Antenna = new MMM_ModelRenderer(this, 0, 19);
 		Antenna.addBox(-0.5F, 0F, -0.5F, 1, 4, 1, psize);
 		Antenna.setRotationPoint(0F, -8F, 0F);
 		bodyup.addChild(Antenna);
-
+		
 		WUnit = new MMM_ModelRenderer(this, 24, 16);
 		WUnit.addBox(-1.5F, -1.5F, -3F, 3, 3, 3, psize - 0.5F);
 		WUnit.setRotationPoint(0F, 3F, -4F);
 		WUnit.rotateAngleZ = 0.785F;
 		bodyup.addChild(WUnit);
-
+		
 		BUnitL = new MMM_ModelRenderer(this, 50, 0);
 		BUnitL.addBox(4F, -6F, 7F, 1, 2, 2, psize);
 		BUnitL.setRotationPoint(0F, -2.5F, 0F);
 		BUnitL.mirror = true;
 		bodyup.addChild(BUnitL);
-
+		
 		BUnitR = new MMM_ModelRenderer(this, 50, 0);
 		BUnitR.addBox(-5F, -6F, 7F, 1, 2, 2, psize);
 		BUnitR.setRotationPoint(0F, -2.5F, 0F);
 		bodyup.addChild(BUnitR);
-
+		
 		// 使っていない部品
 		bipedHeadwear.isHidden = true;
 		
@@ -143,7 +143,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		mainFrame.addChild(RightLeg1);
 		mainFrame.addChild(LeftLeg1);
 	}
-	
+
 	@Override
 	public void showAllParts() {
 		bipedHead.showModel = true;
@@ -209,60 +209,53 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		head1.rotateAngleY = par4 / 57.29578F - 0.785F;
 		head2.rotateAngleY = par4 / 57.29578F + 0.785F;
 		head1.rotateAngleX = head2.rotateAngleX = bipedHead.rotateAngleX;
-
-		bipedRightArm.rotateAngleX = MathHelper.cos(par1 * 0.6662F + 3.141593F)
-				* 2.0F * par2 * 0.5F;// - 0.5F;
-		bipedLeftArm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 2.0F * par2
-				* 0.5F;// - 0.5F;
+		
+		bipedRightArm.rotateAngleX = MathHelper.cos(par1 * 0.6662F + 3.141593F) * 2.0F * par2 * 0.5F;// - 0.5F;
+		bipedLeftArm.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 2.0F * par2 * 0.5F;// - 0.5F;
 		bipedRightArm.rotateAngleY = 0.0F;
 		bipedLeftArm.rotateAngleY = 0.0F;
 		bipedRightArm.rotateAngleZ = 0.0F;
 		bipedLeftArm.rotateAngleZ = 0.0F;
-
-		bipedRightLeg.rotateAngleX = LeftLeg1.rotateAngleX = MathHelper
-				.cos(par1 * 0.6662F) * 1.4F * par2;
-		bipedLeftLeg.rotateAngleX = RightLeg1.rotateAngleX = MathHelper
-				.cos(par1 * 0.6662F + 3.141593F) * 1.4F * par2;
-
+		
+		bipedRightLeg.rotateAngleX = LeftLeg1.rotateAngleX =
+				MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+		bipedLeftLeg.rotateAngleX = RightLeg1.rotateAngleX =
+				MathHelper.cos(par1 * 0.6662F + 3.141593F) * 1.4F * par2;
+		
 		bipedRightLeg.rotateAngleY = RightLeg1.rotateAngleY = 0.0F;
 		bipedLeftLeg.rotateAngleY = LeftLeg1.rotateAngleY = 0.0F;
-
+		
 		bipedRightLeg.rotateAngleZ = RightLeg1.rotateAngleZ = 0.698F;
 		bipedLeftLeg.rotateAngleZ = LeftLeg1.rotateAngleZ = -0.698F;
-
+		
 		LeftLeg1.rotateAngleX += 0.474F;
 		RightLeg1.rotateAngleX += 0.474F;
-
+		
 		if (heldItemLeft != 0) {
-			bipedLeftArm.rotateAngleX = bipedLeftArm.rotateAngleX * 0.5F
-					- 0.3141593F * (float) heldItemLeft;
+			bipedLeftArm.rotateAngleX =
+					bipedLeftArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItemLeft;
 		}
 		if (heldItemRight != 0) {
-			bipedRightArm.rotateAngleX = bipedRightArm.rotateAngleX * 0.5F
-					- 0.3141593F * (float) heldItemRight;
+			bipedRightArm.rotateAngleX =
+					bipedRightArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItemRight;
 		}
 		bipedRightArm.rotateAngleX -= 0.5F;
 		bipedLeftArm.rotateAngleX -= 0.5F;
-
+		
 		if (onGround > -9990F && !aimedBow) {
 			// 腕振り
 			float f6 = onGround;
-			bipedBody.rotateAngleY = MathHelper
-					.sin(MathHelper.sqrt_float(f6) * 3.141593F * 2.0F) * 0.2F;
-
-			bipedRightArm.rotationPointZ = MathHelper
-					.sin(bipedBody.rotateAngleY) * 4F;// -6F;
-			bipedRightArm.rotationPointX = -MathHelper
-					.cos(bipedBody.rotateAngleY) * 4F + 2.5F;
-			bipedLeftArm.rotationPointZ = -MathHelper
-					.sin(bipedBody.rotateAngleY) * 4F;// -6F;
-			bipedLeftArm.rotationPointX = MathHelper
-					.cos(bipedBody.rotateAngleY) * 4F - 2.5F;
-
+			bipedBody.rotateAngleY = MathHelper.sin(MathHelper.sqrt_float(f6) * 3.141593F * 2.0F) * 0.2F;
+			
+			bipedRightArm.rotationPointZ = MathHelper.sin(bipedBody.rotateAngleY) * 4F;// -6F;
+			bipedRightArm.rotationPointX = -MathHelper.cos(bipedBody.rotateAngleY) * 4F + 2.5F;
+			bipedLeftArm.rotationPointZ = -MathHelper.sin(bipedBody.rotateAngleY) * 4F;// -6F;
+			bipedLeftArm.rotationPointX = MathHelper.cos(bipedBody.rotateAngleY) * 4F - 2.5F;
+			
 			bipedRightArm.rotateAngleY += bipedBody.rotateAngleY;
 			bipedLeftArm.rotateAngleY += bipedBody.rotateAngleY;
 			bipedLeftArm.rotateAngleX += bipedBody.rotateAngleY;
-
+			
 			f6 = 1.0F - onGround;
 			f6 *= f6;
 			f6 *= f6;
@@ -272,10 +265,9 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 					* -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 			bipedRightArm.rotateAngleX -= (double) f7 * 1.2D + (double) f8;
 			bipedRightArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-			bipedRightArm.rotateAngleZ = MathHelper.sin(onGround * 3.141593F)
-					* -0.4F;
+			bipedRightArm.rotateAngleZ = MathHelper.sin(onGround * 3.141593F) * -0.4F;
 		}
-
+		
 		if (isSneak) {
 			// しゃがみ
 			bipedHead.rotationPointY = head1.rotationPointY = head2.rotationPointY = 0.5F;
@@ -285,13 +277,13 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftArm.rotationPointY = 6F;
 			bipedRightLeg.rotationPointY = RightLeg1.rotationPointY = 5F;
 			bipedLeftLeg.rotationPointY = LeftLeg1.rotationPointY = 5F;
-
+			
 			bipedBody.rotateAngleX = 0.5F;
 			bipedRightArm.rotateAngleX += 0.4F;
 			bipedLeftArm.rotateAngleX += 0.4F;
 			bipedRightLeg.rotationPointZ = -3F;
 			bipedLeftLeg.rotationPointZ = -3F;
-
+			
 			bipedRightLeg.rotateAngleZ += 0.3F;
 			RightLeg1.rotateAngleZ += 0.3F;
 			bipedLeftLeg.rotateAngleZ -= 0.3F;
@@ -305,7 +297,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftArm.rotationPointY = 5F;
 			bipedRightLeg.rotationPointY = RightLeg1.rotationPointY = 4F;
 			bipedLeftLeg.rotationPointY = LeftLeg1.rotationPointY = 4F;
-
+			
 			bipedBody.rotateAngleX = 0F;
 			bipedRightLeg.rotationPointZ = -3F;
 			bipedLeftLeg.rotationPointZ = -3F;
@@ -318,16 +310,16 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			bipedLeftArm.rotationPointY = 7F;
 			bipedRightLeg.rotationPointY = RightLeg1.rotationPointY = 7F;
 			bipedLeftLeg.rotationPointY = LeftLeg1.rotationPointY = 7F;
-
+			
 			bipedRightArm.rotateAngleX = -0.6F;
 			bipedLeftArm.rotateAngleX = -0.6F;
-
+			
 			bipedRightLeg.rotateAngleX = -1.4F;
 			bipedLeftLeg.rotateAngleX = -1.4F;
 			bipedRightLeg.rotateAngleY = 0.2F;
 			bipedLeftLeg.rotateAngleY = -0.2F;
 		}
-
+		
 		if (isWait) {
 			// 待機状態の特別表示
 			bipedRightArm.rotateAngleX = MathHelper.sin(par3 * 0.067F) * 0.05F - 0.7F;
@@ -340,8 +332,7 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 			if (aimedBow) {
 				// 弓構え
 				float f6 = MathHelper.sin(onGround * 3.141593F);
-				float f7 = MathHelper.sin((1.0F - (1.0F - onGround)
-						* (1.0F - onGround)) * 3.141593F);
+				float f7 = MathHelper.sin((1.0F - (1.0F - onGround) * (1.0F - onGround)) * 3.141593F);
 				bipedRightArm.rotateAngleZ = 0.0F;
 				bipedLeftArm.rotateAngleZ = 0.0F;
 				bipedRightArm.rotateAngleY = -(0.1F - f6 * 0.6F);
@@ -373,20 +364,18 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 		// 手持ちの表示
 		GL11.glPushMatrix();
 
-		// TODO:今は手抜きなのでちゃんと実装すること
-		ItemStack litemstack;
-		EnumAction laction;
-		// R
-		litemstack = pEntity.getHeldItem();
-//		laction = (pEntity.maidDominantArm == 0 && pEntity.maidAvatar.getItemInUseCount() > 0) ? litemstack.getItemUseAction() : null;
-		laction = null;
-		Arms[0].loadMatrix().renderItems(pEntity, pRender, false, laction ,litemstack);
-		// L
-//		litemstack = pEntity.mstatSwingStatus[1].getItemStack(pEntity);
-//		laction = (pEntity.maidDominantArm == 1 && pEntity.maidAvatar.getItemInUseCount() > 0) ? litemstack.getItemUseAction() : null;
-//		Arms[1].loadMatrix().renderItems(pEntity, pRender, false, laction, litemstack);
-		
 		if (modelCaps != null) {
+			int ldominant = modelCaps.getCapsValueInt(caps_dominantArm);
+			ItemStack[] litemstacks = (ItemStack[])modelCaps.getCapsValue(caps_Items);
+			EnumAction[] lactions = (EnumAction[])modelCaps.getCapsValue(caps_Actions);
+			// R
+			Arms[0].loadMatrix().renderItems(pEntity, pRender, false,
+					lactions[ldominant] ,litemstacks[ldominant]);
+			// L
+//			litemstack = pEntity.mstatSwingStatus[1].getItemStack(pEntity);
+//			laction = (pEntity.maidDominantArm == 1 && pEntity.maidAvatar.getItemInUseCount() > 0) ? litemstack.getItemUseAction() : null;
+//			Arms[1].loadMatrix().renderItems(pEntity, pRender, false, laction, litemstack);
+			
 			// 頭部装飾品
 			boolean lcamo = modelCaps.getCapsValueBoolean(caps_isCamouflage);
 			boolean lplant = modelCaps.getCapsValueBoolean(caps_isPlanter);
@@ -397,6 +386,8 @@ public class EST_Model_Tachikoma extends MMM_ModelBiped {
 				}
 				HeadMount.renderItems(pEntity, pRender, true, null, (ItemStack)modelCaps.getCapsValue(caps_HeadMount));
 			}
+		} else {
+			Arms[0].loadMatrix().renderItems(pEntity, pRender, false, null ,pEntity.getHeldItem());
 		}
 		
 		GL11.glPopMatrix();

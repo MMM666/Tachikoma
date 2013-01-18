@@ -5,11 +5,11 @@ import org.lwjgl.opengl.GL11;
 
 public class EST_RenderTachikoma extends RenderSpider {
 
-	public MMM_ModelArmors modelMain;
+	public MMM_ModelDuo modelMain;
 	
 	public EST_RenderTachikoma() {
 		super();
-		modelMain = new MMM_ModelArmors(this);
+		modelMain = new MMM_ModelDuo(this);
 		modelMain.isModelAlphablend = true;
 		mainModel = modelMain;
 		setRenderPassModel(modelMain);
@@ -25,25 +25,28 @@ public class EST_RenderTachikoma extends RenderSpider {
 		if (par2 != 0) {
 			return -1;
 		} else {
-			this.loadTexture(((EST_EntityTachikoma)par1EntitySpider).textureEye);
-			float var4 = 1.0F;
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glDisable(GL11.GL_ALPHA_TEST);
-			GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
-			
-			if (par1EntitySpider.getHasActivePotion()) {
-				GL11.glDepthMask(false);
-			} else {
-				GL11.glDepthMask(true);
+			String ls = ((EST_EntityTachikoma)par1EntitySpider).textureEye;
+			if (ls != null) {
+				this.loadTexture(ls);
+				float var4 = 1.0F;
+				GL11.glEnable(GL11.GL_BLEND);
+				GL11.glDisable(GL11.GL_ALPHA_TEST);
+				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
+				
+				if (par1EntitySpider.getHasActivePotion()) {
+					GL11.glDepthMask(false);
+				} else {
+					GL11.glDepthMask(true);
+				}
+				
+				char var5 = 61680;
+				int var6 = var5 % 65536;
+				int var7 = var5 / 65536;
+				OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,
+						(float) var6 / 1.0F, (float) var7 / 1.0F);
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+				GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
 			}
-			
-			char var5 = 61680;
-			int var6 = var5 % 65536;
-			int var7 = var5 / 65536;
-			OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,
-					(float) var6 / 1.0F, (float) var7 / 1.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			GL11.glColor4f(1.0F, 1.0F, 1.0F, var4);
 			return 1;
 		}
 	}
