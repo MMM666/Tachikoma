@@ -1,4 +1,4 @@
-﻿package net.minecraft.src;
+package net.minecraft.src;
 
 import static net.minecraft.src.MMM_IModelCaps.*;
 import org.lwjgl.opengl.GL11;

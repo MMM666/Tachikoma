@@ -1,9 +1,9 @@
-ï»¿package net.minecraft.src;
+package net.minecraft.src;
 
 public class EST_EntityTachikoma extends EntitySpider {
 
 	/**
-	 * è…•ã‚’ä¸Šã«ä¸Šã’ã¦ã„ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°ã€ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã‚¢ãƒƒãƒ—æ™‚ã«ãƒ•ãƒ©ã‚°ãŒä½¿ã‚ã‚Œã¦ã„ãªã„ã‹ã‚’ç¢ºèªã™ã‚‹ã“ã¨ã€‚
+	 * ˜r‚ğã‚Éã‚°‚Ä‚¢‚é‚©‚Ìƒtƒ‰ƒOAƒo[ƒWƒ‡ƒ“ƒAƒbƒv‚Éƒtƒ‰ƒO‚ªg‚í‚ê‚Ä‚¢‚È‚¢‚©‚ğŠm”F‚·‚é‚±‚ÆB
 	 */
 	public static int flags_aimedBow = 7;
 
@@ -16,17 +16,28 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	public EST_EntityTachikoma(World world) {
 		super(world);
-		textureName = mod_EST_Tachikoma.getRandomTexture();
-		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
-		texture = MMM_TextureManager.getTextureName(textureName, color);
-		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
+//		textureName = mod_EST_Tachikoma.getRandomTexture();
+//		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+//		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
+//		texture = MMM_TextureManager.getTextureName(textureName, color);
+//		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
 		
 		if (world.isRemote) {
+			// Client
+			textureName = mod_EST_Tachikoma.defaultModel;
+			textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+			color = 15;
+			texture = MMM_TextureManager.getTextureName(textureName, color);
+			textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
 			client = new EST_Client(this);
 			client.setModel(textureName);
+		} else {
+			// Server
+			textureName = mod_EST_Tachikoma.getRandomTexture();
+			textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+			color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
 		}
-		// TODO:ãƒãƒ«ãƒåˆ¤å®šã—ã‚Œ
+		// TODO:ƒ}ƒ‹ƒ`”»’è‚µ‚ê
 //		if (mod_EST_Tachikoma.changeMobSize) {
 //			setSize(EST_RenderTachikoma.modelWidth, EST_RenderTachikoma.modelHeight);
 //		}
@@ -46,7 +57,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 			}
 			int ltextureindex = dataWatcher.getWatchableObjectInt(20);
 			if (textureIndex != ltextureindex) {
-				MMM_TextureBoxServer lbox = MMM_TextureManager.getIndexToString(ltextureindex);
+				MMM_TextureBoxServer lbox = MMM_TextureManager.getIndexToBox(ltextureindex);
 				if (lbox != null && lbox.textureName != null) {
 					lflag = true;
 					textureIndex = ltextureindex;
@@ -93,10 +104,13 @@ public class EST_EntityTachikoma extends EntitySpider {
 		super.readEntityFromNBT(nbttagcompound);
 		color = nbttagcompound.getByte("TextureColor");
 		textureName = nbttagcompound.getString("TextureName");
+		if (textureName == null || textureName.isEmpty()) {
+			textureName = mod_EST_Tachikoma.defaultModel;
+		}
 		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-		// ç²å¾—ã—ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã§å†å®šç¾©
-		textureName = MMM_TextureManager.getIndexToString(textureIndex).textureName;
-		// ã‚µãƒ¼ãƒãƒ¼å´ã§ã¯è¦ã‚‰ãªã„
+		// Šl“¾‚µ‚½ƒCƒ“ƒfƒbƒNƒX‚ÅÄ’è‹`
+		textureName = MMM_TextureManager.getIndexToString(textureIndex);
+		// ƒT[ƒo[‘¤‚Å‚Í—v‚ç‚È‚¢
 //		texture = MMM_TextureManager.getTextureName(textureName, color);
 //		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
 	}
@@ -118,13 +132,13 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	@Override
 	public double getMountedYOffset() {
-		// æ­ä¹—é«˜
+		// “‹æ‚
 		return super.getMountedYOffset() + 0.85F;
 	}
 
 	@Override
 	public void updateRiderPosition() {
-		// æ­ä¹—ä½ç½®
+		// “‹æˆÊ’u
 		if (riddenByEntity == null) {
 			return;
 		} else {
@@ -140,7 +154,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	@Override
 	protected Entity findPlayerToAttack() {
-		// æ­ä¹—è€…ã¯ç´¢æ•µå¯¾è±¡å¤–
+		// “‹æÒ‚Íõ“G‘ÎÛŠO
 		Entity entity = super.findPlayerToAttack();
 		if (entity == riddenByEntity) {
 			entity = null;
@@ -164,7 +178,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 
 	/**
-	 * è…•ã‚’ä¸Šã«ä¸Šã’ã‚‹
+	 * ˜r‚ğã‚Éã‚°‚é
 	 */
 	public boolean getAimedBow() {
 		return getFlag(flags_aimedBow);
