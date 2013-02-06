@@ -57,6 +57,8 @@ public class EST_RenderTachikoma extends RenderSpider {
 		modelMain.setCapsValue(caps_aimedBow, ((EST_EntityTachikoma)entity).getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, ((EntityCreature) entity).isSneaking());
 		modelMain.setCapsValue(caps_isRiding, ((EntityCreature) entity).isRiding());
+		modelMain.setCapsValue(caps_heldItemRight, 0);
+		modelMain.setCapsValue(caps_heldItemLeft, 0);
 		modelMain.isAlphablend = true;
 		
 		super.doRender(entity, d, d1 - 0.2D, d2, f, f1);
