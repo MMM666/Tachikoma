@@ -63,5 +63,11 @@ public class EST_RenderTachikoma extends RenderSpider {
 		
 		super.doRender(entity, d, d1 - 0.2D, d2, f, f1);
 	}
+	
+	@Override
+	protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2) {
+		super.renderEquippedItems(par1EntityLiving, par2);
+		renderArrowsStuckInEntity(par1EntityLiving, par2);
+	}
 
 }

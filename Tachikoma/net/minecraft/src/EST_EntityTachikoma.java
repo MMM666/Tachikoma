@@ -78,7 +78,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 			if (textureIndex != ltextureindex) {
 				dataWatcher.updateObject(20, textureIndex);
 			}
-			boolean laimedBow = getAITarget() != null;
+			boolean laimedBow = getAITarget() != null || getEntityToAttack() != null;
 			if (getAimedBow() != laimedBow) {
 				setFlag(flags_aimedBow, laimedBow);
 			}
@@ -101,6 +101,7 @@ public class EST_EntityTachikoma extends EntitySpider {
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
+		System.out.println(String.format("EST_RD_remort:%b", worldObj.isRemote));
 		super.readEntityFromNBT(nbttagcompound);
 		color = nbttagcompound.getByte("TextureColor");
 		textureName = nbttagcompound.getString("TextureName");
@@ -165,9 +166,9 @@ public class EST_EntityTachikoma extends EntitySpider {
 	@Override
 	public boolean interact(EntityPlayer entityplayer) {
 		if (!super.interact(entityplayer)) {
-			if (worldObj.isRemote) {
+			if (!worldObj.isRemote) {
 				// RIDE-ON
-				if (getAITarget() != entityplayer) {
+				if (getAITarget() != entityplayer || getEntityToAttack() != entityplayer) {
 					entityplayer.mountEntity(this);
 					return true;
 				}

@@ -28,9 +28,10 @@ public class mod_EST_Tachikoma extends BaseMod {
 	public static String playerSkin = "/mob/Tachikoma/CV_Tachikoma/Tachikoma_3b.png";
 	@MLProp(info = "using textures.")
 	public static String selectModels = "CV_Tachikoma,OptCam_Tachikoma";
-
 	public static String defaultModel = "CV_Tachikoma";
-
+	@MLProp
+	public static boolean isArrowsStuck = true;
+	
 
 	@Override
 	public String getVersion() {
