@@ -35,7 +35,7 @@ public class mod_EST_Tachikoma extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.1-1";
+		return "1.5.1-2";
 	}
 
 	@Override

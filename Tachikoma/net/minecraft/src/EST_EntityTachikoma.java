@@ -21,26 +21,39 @@ public class EST_EntityTachikoma extends EntitySpider {
 //		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
 //		texture = MMM_TextureManager.getTextureName(textureName, color);
 //		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
+
 		
-		if (world.isRemote) {
-			// Client
-			textureName = mod_EST_Tachikoma.defaultModel;
-			textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-			color = 15;
-			texture = MMM_TextureManager.getTextureName(textureName, color);
-			textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
+		textureName = mod_EST_Tachikoma.getRandomTexture();
+		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
+		
+		if (MMM_Helper.isClient) {
 			client = new EST_Client(this);
 			client.setModel(textureName);
-		} else {
-			// Server
-			textureName = mod_EST_Tachikoma.getRandomTexture();
-			textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-			color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
 		}
-		// TODO:マルチ判定しれ
-//		if (mod_EST_Tachikoma.changeMobSize) {
-//			setSize(EST_RenderTachikoma.modelWidth, EST_RenderTachikoma.modelHeight);
-//		}
+
+		if (false && worldObj != null) {
+			if (worldObj.isRemote) {
+				// Client
+				textureName = mod_EST_Tachikoma.defaultModel;
+				textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+				color = 15;
+				texture = MMM_TextureManager.getTextureName(textureName, color);
+				textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
+//				client = new EST_Client(this);
+//				client.setModel(textureName);
+			} else {
+				// Server
+				textureName = mod_EST_Tachikoma.getRandomTexture();
+				textureIndex = MMM_TextureManager.getStringToIndex(textureName);
+				color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
+			}
+			// TODO:マルチ判定しれ
+//			if (mod_EST_Tachikoma.changeMobSize) {
+//				setSize(EST_RenderTachikoma.modelWidth, EST_RenderTachikoma.modelHeight);
+//			}
+		}
+
 	}
 
 	@Override
@@ -185,4 +198,15 @@ public class EST_EntityTachikoma extends EntitySpider {
 		return getFlag(flags_aimedBow);
 	}
 
+	@Override
+	public void initCreature() {
+		super.initCreature();
+	}
+	
+	@Override
+	public void setWorld(World par1World) {
+		// TODO Auto-generated method stub
+		super.setWorld(par1World);
+	}
+	
 }
