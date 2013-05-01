@@ -33,7 +33,7 @@ public class EST_RenderTachikoma extends RenderSpider {
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
 				GL11.glBlendFunc(GL11.GL_ONE, GL11.GL_ONE);
 				
-				if (par1EntitySpider.getHasActivePotion()) {
+				if (par1EntitySpider.isInvisible()) {
 					GL11.glDepthMask(false);
 				} else {
 					GL11.glDepthMask(true);
