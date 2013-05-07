@@ -2,9 +2,9 @@ package net.minecraft.src;
 
 public class EST_Client {
 
-	public MMM_ModelBiped textureModel0;
-	public MMM_ModelBiped textureModel1;
-	public MMM_ModelBiped textureModel2;
+	public MMM_ModelMultiBase textureModel0;
+	public MMM_ModelMultiBase textureModel1;
+	public MMM_ModelMultiBase textureModel2;
 
 	public EntityLiving owner;
 

@@ -9,9 +9,6 @@ import javax.print.attribute.standard.MediaSize.ISO;
 
 public class mod_EST_Tachikoma extends BaseMod {
 
-	public static String entityName = "Spider";
-	public static String[] textures;
-
 	@MLProp(info = "Replace SpiderForm.")
 	public static boolean isSpiderForm = true;
 	@MLProp(info = "Replace PlayerForm.")
@@ -32,11 +29,9 @@ public class mod_EST_Tachikoma extends BaseMod {
 	@MLProp
 	public static boolean isArrowsStuck = true;
 	
+	public static String[] textures;
 
-	@Override
-	public String getVersion() {
-		return "1.5.1-2";
-	}
+
 
 	@Override
 	public String getName() {
@@ -50,33 +45,22 @@ public class mod_EST_Tachikoma extends BaseMod {
 	}
 
 	@Override
+	public String getVersion() {
+		return "1.5.2-1";
+	}
+
+	@Override
 	public void load() {
+		// MMMLibのRevisionチェック
+		MMM_Helper.checkRevision("1");
+		
 		// タチコマ系のモデルを読み込み
 		textures = selectModels.split(",");
 		MMM_FileManager.getModFile("Tachikoma", "Tachikoma");
 		MMM_TextureManager.addSearch("Tachikoma", "/mob/Tachikoma/", "EST_Model_");
-	}
-
-	@Override
-	public void modsLoaded() {
 		if (isSpiderForm) {
 			// 置換え
-			Entity entity = EntityList.createEntityByName(entityName, null);
-			int id = EntityList.getEntityID(entity);
-			ModLoader.registerEntityID(EST_EntityTachikoma.class, entityName, id);
-			
-			// バイオームのスポーンリストを置き換え
-			for (int i = 0; i < BiomeGenBase.biomeList.length; i++) {
-				if (BiomeGenBase.biomeList[i] != null) {
-					List<SpawnListEntry> list1 = BiomeGenBase.biomeList[i].spawnableMonsterList;
-					for (int j = 0; j < list1.size(); j++) {
-						if (list1.get(j).entityClass == entity.getClass()) {
-							list1.get(j).entityClass = EST_EntityTachikoma.class;
-						}
-					}
-				}
-			}
-			System.out.println("Tachikoma replace " + entityName + " entity.");
+			MMM_Helper.replaceEntityList(EntitySpider.class, EST_EntityTachikoma.class);
 		}
 	}
 
