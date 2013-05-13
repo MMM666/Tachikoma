@@ -13,11 +13,10 @@ public class EST_Client {
 		owner = pentity;
 	}
 
-	public void setModel(String pTextureName) {
-		MMM_TextureBox ltb = MMM_TextureManager.getTextureBox(pTextureName);
-		textureModel0 = ltb.models[0];
-		textureModel1 = ltb.models[1];
-		textureModel2 = ltb.models[2];
+	public void setModel(MMM_TextureBox pTextureBox) {
+		textureModel0 = pTextureBox.models[0];
+		textureModel1 = pTextureBox.models[1];
+		textureModel2 = pTextureBox.models[2];
 	}
-	
+
 }
