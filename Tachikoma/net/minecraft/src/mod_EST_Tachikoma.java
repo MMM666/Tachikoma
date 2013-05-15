@@ -65,6 +65,12 @@ public class mod_EST_Tachikoma extends BaseMod {
 	}
 
 	@Override
+	public void modsLoaded() {
+		// デフォルトモデルの設定
+		MMM_TextureManager.setDefaultTexture(EST_EntityTachikoma.class, MMM_TextureManager.getTextureBox(defaultModel));
+	}
+
+	@Override
 	public void addRenderer(Map map) {
 		try {
 			if (isSpiderForm) {

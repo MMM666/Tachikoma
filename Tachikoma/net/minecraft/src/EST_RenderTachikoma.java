@@ -51,19 +51,23 @@ public class EST_RenderTachikoma extends RenderSpider {
 		}
 	}
 
-	@Override
-	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
-		modelMain.modelArmorInner = ((EST_EntityTachikoma)entity).client.textureModel0;
-		modelMain.setCapsValue(caps_aimedBow, ((EST_EntityTachikoma)entity).getAimedBow());
-		modelMain.setCapsValue(caps_isSneak, ((EntityCreature) entity).isSneaking());
-		modelMain.setCapsValue(caps_isRiding, ((EntityCreature) entity).isRiding());
+	public void doRenderTachikoma(EST_EntityTachikoma entity, double d, double d1, double d2, float f, float f1) {
+		modelMain.modelArmorInner = ((MMM_TextureBox)entity.textureBox[0]).models[0];
+		modelMain.setCapsValue(caps_aimedBow, entity.getAimedBow());
+		modelMain.setCapsValue(caps_isSneak, entity.isSneaking());
+		modelMain.setCapsValue(caps_isRiding, entity.isRiding());
 		modelMain.setCapsValue(caps_heldItemRight, 0);
 		modelMain.setCapsValue(caps_heldItemLeft, 0);
 		modelMain.isAlphablend = true;
 		
 		super.doRender(entity, d, d1 - 0.2D, d2, f, f1);
 	}
-	
+
+	@Override
+	public void doRender(Entity entity, double d, double d1, double d2, float f, float f1) {
+		doRenderTachikoma((EST_EntityTachikoma)entity, d, d1, d2, f, f1);
+	}
+
 	@Override
 	protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2) {
 		super.renderEquippedItems(par1EntityLiving, par2);

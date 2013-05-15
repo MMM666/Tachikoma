@@ -7,88 +7,56 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	 */
 	public static int flags_aimedBow = 7;
 
-	public int textureIndex;
+	public int textureIndex[] = new int[1];
+	public MMM_TextureBoxBase textureBox[] = new MMM_TextureBoxBase[1];
 	public String textureEye;
-	public String textureName;
 	public int color;
-	public EST_Client client;
 
 
 	public EST_EntityTachikoma(World world) {
 		super(world);
-//		textureName = mod_EST_Tachikoma.getRandomTexture();
-//		textureIndex = MMM_TextureManager.getStringToIndex(textureName);
-//		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
-//		texture = MMM_TextureManager.getTextureName(textureName, color);
-//		textureEye = MMM_TextureManager.getTextureName(textureName, 0x60 | color);
-
 		
-		textureName = mod_EST_Tachikoma.getRandomTexture();
-		textureIndex = MMM_TextureManager.getIndexTextureBoxServer(this, textureName);
-		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
-		
-		if (MMM_Helper.isClient) {
-			client = new EST_Client(this);
-			client.setModel(MMM_TextureManager.getTextureBox(textureName));
-		}
-		
-	}
-
-	@Override
-	public void onUpdate() {
-		super.onUpdate();
-		
-		if (worldObj.isRemote) {
-			// Client
-			boolean lflag = false;
-			int lcolor = (int)dataWatcher.getWatchableObjectByte(19) & 0x00ff;
-			if (color != lcolor) {
-				color = lcolor;
-				lflag = MMM_TextureManager.getTextureBox(textureName).hasColor(lcolor);
-			}
-			int ltextureindex = dataWatcher.getWatchableObjectInt(20);
-			if (textureIndex != ltextureindex) {
-				textureIndex = ltextureindex;
-				lflag = true;
-			}
-			if (lflag) {
-				MMM_TextureManager.postGetTexturePack(this, new int[] { textureIndex });
-			}
-		} else {
-			boolean laimedBow = getAITarget() != null || getEntityToAttack() != null;
-			if (getAimedBow() != laimedBow) {
-				setFlag(flags_aimedBow, laimedBow);
-			}
-		}
+		String lname = mod_EST_Tachikoma.getRandomTexture();
+//		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
+		// ダミー設定
+		textureBox[0] = MMM_TextureManager.getTextureBox(lname);
+		color = textureBox[0].getRandomContractColor(rand);
 	}
 
 	@Override
 	protected void entityInit() {
 		super.entityInit();
-		dataWatcher.addObject(19, Byte.valueOf((byte)color));
-		dataWatcher.addObject(20, Integer.valueOf(textureIndex));
+		dataWatcher.addObject(19, Byte.valueOf((byte)0xff));
+		dataWatcher.addObject(20, Integer.valueOf(-1));
+	}
+
+	@Override
+	public void initCreature() {
+		super.initCreature();
+		String lname = mod_EST_Tachikoma.getRandomTexture();
+		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
+		textureBox[0] = MMM_TextureManager.getTextureBoxServer(textureIndex[0]);
+		color = textureBox[0].getRandomContractColor(rand);
+		setTexturePackIndex(color, textureIndex);
 	}
 
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbttagcompound) {
 		super.writeEntityToNBT(nbttagcompound);
 		nbttagcompound.setByte("TextureColor", (byte)color);
-		nbttagcompound.setString("TextureName", textureName);
+		nbttagcompound.setString("TextureName", textureBox[0].textureName);
 	}
 
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbttagcompound) {
-		System.out.println(String.format("EST_RD_remort:%b", worldObj.isRemote));
 		super.readEntityFromNBT(nbttagcompound);
 		color = nbttagcompound.getByte("TextureColor");
-		textureName = nbttagcompound.getString("TextureName");
-		if (textureName == null || textureName.isEmpty()) {
-			textureName = mod_EST_Tachikoma.defaultModel;
+		String lname = nbttagcompound.getString("TextureName");
+		if (lname == null || lname.isEmpty()) {
+			lname = mod_EST_Tachikoma.defaultModel;
 		}
-		textureIndex = MMM_TextureManager.getIndexTextureBoxServer(this, textureName);
-		// 獲得したインデックスで再定義
-//		textureName = MMM_TextureManager.getTextureBoxServer(textureIndex).textureName;
-		setTexturePackIndex(color, new int[] {textureIndex});
+		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
+		setTexturePackIndex(color, textureIndex);
 	}
 
 	@Override
@@ -109,7 +77,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	@Override
 	public double getMountedYOffset() {
 		// 搭乗高
-		return super.getMountedYOffset() + 0.85F;
+		return textureBox[0].getMountedYOffset();
 	}
 
 	@Override
@@ -152,21 +120,40 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		return false;
 	}
 
+	@Override
+	public void onUpdate() {
+		super.onUpdate();
+		
+		if (worldObj.isRemote) {
+			// Client
+			boolean lflag = false;
+			int lcolor = (int)dataWatcher.getWatchableObjectByte(19) & 0x00ff;
+			int ltextureindex = dataWatcher.getWatchableObjectInt(20);
+			if (color != lcolor) {
+				color = lcolor;
+				lflag = ((MMM_TextureBox)textureBox[0]).hasColor(lcolor);
+			}
+			if (textureIndex[0] != ltextureindex) {
+				textureIndex[0] = ltextureindex;
+				lflag = true;
+			}
+			if (lflag) {
+				MMM_TextureManager.postGetTexturePack(this, textureIndex);
+			}
+		} else {
+			boolean laimedBow = getAITarget() != null || getEntityToAttack() != null;
+			if (getAimedBow() != laimedBow) {
+				setFlag(flags_aimedBow, laimedBow);
+			}
+		}
+	}
+
 
 	/**
 	 * 腕を上に上げる
 	 */
 	public boolean getAimedBow() {
 		return getFlag(flags_aimedBow);
-	}
-
-	@Override
-	public void initCreature() {
-		super.initCreature();
-		textureName = mod_EST_Tachikoma.getRandomTexture();
-		textureIndex = MMM_TextureManager.getIndexTextureBoxServer(this, textureName);
-		color = MMM_TextureManager.getRandomContractColor(textureIndex, rand);
-		setTexturePackIndex(color, new int[] {textureIndex});
 	}
 
 	@Override
@@ -178,21 +165,20 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	public void setTexturePackIndex(int pColor, int[] pIndex) {
 		// Server
 		color = pColor;
-		textureIndex = pIndex[0];
-		MMM_TextureBoxServer lbox = MMM_TextureManager.getTextureBoxServer(textureIndex);
-		textureName = lbox.textureName;
+		textureIndex[0] = pIndex[0];
+		textureBox[0] = MMM_TextureManager.getTextureBoxServer(textureIndex[0]);
 		dataWatcher.updateObject(19, (byte)color);
-		dataWatcher.updateObject(20, textureIndex);
+		dataWatcher.updateObject(20, textureIndex[0]);
 //		setSize(-1, -1);
-		setSize(lbox.modelWidth, lbox.modelHeight);
+		setSize(textureBox[0].getWidth(), textureBox[0].getHeight());
 	}
 
 	@Override
 	public void setTexturePackName(MMM_TextureBox[] pTextureBox) {
 		// Client
+		textureBox[0] = pTextureBox[0];
 		texture = MMM_TextureManager.getTextureName(pTextureBox[0], color);
 		textureEye = MMM_TextureManager.getTextureName(pTextureBox[0], 0x60 | color);
-		client.setModel(pTextureBox[0]);
 	}
 
 }

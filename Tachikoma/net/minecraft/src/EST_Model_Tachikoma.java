@@ -385,6 +385,11 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiBase {
 		return 1.53F;
 	}
 
+	@Override
+	public float getMountedYOffset() {
+		return 1.0F;
+	}
+
 	public void equippedBlockPosition() {
 		// 手持ちブロックの表示位置
 		GL11.glTranslatef(0.0F, 0.1275F, -0.3125F);
