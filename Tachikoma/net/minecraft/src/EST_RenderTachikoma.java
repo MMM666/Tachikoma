@@ -5,11 +5,11 @@ import org.lwjgl.opengl.GL11;
 
 public class EST_RenderTachikoma extends RenderSpider {
 
-	public MMM_ModelDuo modelMain;
+	public MMM_ModelBaseDuo modelMain;
 	
 	public EST_RenderTachikoma() {
 		super();
-		modelMain = new MMM_ModelDuo(this);
+		modelMain = new MMM_ModelBaseDuo(this);
 		modelMain.isModelAlphablend = true;
 		mainModel = modelMain;
 		setRenderPassModel(modelMain);
@@ -52,13 +52,14 @@ public class EST_RenderTachikoma extends RenderSpider {
 	}
 
 	public void doRenderTachikoma(EST_EntityTachikoma entity, double d, double d1, double d2, float f, float f1) {
-		modelMain.modelArmorInner = ((MMM_TextureBox)entity.textureBox[0]).models[0];
+		modelMain.modelInner = ((MMM_TextureBox)entity.textureBox[0]).models[0];
 		modelMain.setCapsValue(caps_aimedBow, entity.getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, entity.isSneaking());
 		modelMain.setCapsValue(caps_isRiding, entity.isRiding());
 		modelMain.setCapsValue(caps_heldItemRight, 0);
 		modelMain.setCapsValue(caps_heldItemLeft, 0);
 		modelMain.isAlphablend = true;
+		modelMain.isRendering = true;
 		
 		super.doRender(entity, d, d1 - 0.2D, d2, f, f1);
 	}
@@ -72,6 +73,11 @@ public class EST_RenderTachikoma extends RenderSpider {
 	protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2) {
 		super.renderEquippedItems(par1EntityLiving, par2);
 		renderArrowsStuckInEntity(par1EntityLiving, par2);
+	}
+
+	@Override
+	protected void renderArrowsStuckInEntity(EntityLiving par1EntityLiving, float par2) {
+		MMM_Client.renderArrowsStuckInEntity(par1EntityLiving, par2, this, modelMain.modelInner);
 	}
 
 }

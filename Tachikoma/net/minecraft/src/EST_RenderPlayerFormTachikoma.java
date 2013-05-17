@@ -1,58 +1,247 @@
 package net.minecraft.src;
 
+import static net.minecraft.src.MMM_IModelCaps.*;
 import org.lwjgl.opengl.GL11;
 
 public class EST_RenderPlayerFormTachikoma extends RenderPlayer {
-/*
-//	protected ModelBiped modelBipedMain;
-//	protected ModelBiped modelArmorChestplate;
-//	protected ModelBiped modelArmor;
 	
-	protected MMM_ModelArmors modelMain;
-	protected MMM_ModelArmors modelArmor;
+	protected MMM_ModelBaseDuo modelMain;
+	protected MMM_ModelBaseDuo modelArmor;
+	protected MMM_TextureBox textureBox;
+	
+
 
 	public EST_RenderPlayerFormTachikoma() {
 		super();
-
 		// モデルの置き換え
-		modelBipedMain = new EST_ModelTachikoma(0.0F);
-		modelArmorChestplate = new EST_ModelTachikoma(1.0F);
-		modelArmor = new EST_ModelTachikoma(0.5F);
-		mainModel = modelBipedMain;
-
-		try {
-			ModLoader.setPrivateValue(RenderPlayer.class, this, 0,
-					modelBipedMain);
-			ModLoader.setPrivateValue(RenderPlayer.class, this, 1,
-					modelArmorChestplate);
-			ModLoader.setPrivateValue(RenderPlayer.class, this, 2, modelArmor);
-		} catch (Exception exception) {
-		}
+		modelMain = new MMM_ModelBaseDuo(this);
+		modelArmor = new MMM_ModelBaseDuo(this);
+		textureBox = MMM_TextureManager.getTextureBox(mod_EST_Tachikoma.playerModel);
+		modelMain.modelInner = textureBox.models[0];
+		modelMain.textureInner = new String[] {textureBox.getTextureName(mod_EST_Tachikoma.playerColor), "", "", ""};
+		modelMain.capsLink = modelArmor;
+		modelArmor.modelInner = textureBox.models[1];
+		modelArmor.modelOuter = textureBox.models[2];
+		modelArmor.textureInner = new String[4];
+		modelArmor.textureOuter = new String[4];
+		mainModel = modelMain;
 	}
 
 	@Override
-	protected int setArmorModel(EntityPlayer entityplayer, int i, float f) {
-		// 面倒だから鎧は非表示
+	protected int setArmorModel(EntityPlayer par1EntityPlayer, int par2, float par3) {
+		// アーマーの表示設定
+		modelArmor.renderParts = par2;
+		ItemStack is = par1EntityPlayer.getCurrentArmor(par2);
+		if (is != null && is.stackSize > 0) {
+			modelArmor.showArmorParts(par2);
+			modelArmor.textureInner[par2] = textureBox.getArmorTextureName(true, is);
+			modelArmor.textureOuter[par2] = textureBox.getArmorTextureName(false, is);
+			return is.isItemEnchanted() ? 15 : 1;
+		}
+		
 		return -1;
 	}
 
 	@Override
-	public void renderPlayer(EntityPlayer entityplayer, double d, double d1,
-			double d2, float f, float f1) {
-
-		if (!mod_EST_Tachikoma.playerSkin.isEmpty()) {
-			entityplayer.skinUrl = null;
-			entityplayer.texture = mod_EST_Tachikoma.playerSkin;
+	public void renderPlayer(EntityPlayer par1EntityPlayer, double par2, double par4, double par6, float par8, float par9) {
+		modelMain.setRender(this);
+		modelMain.setEntityCaps(EST_EntityCaps.instance);
+		EST_EntityCaps.instance.player = par1EntityPlayer;
+		
+		float var10 = 1.0F;
+		GL11.glColor3f(var10, var10, var10);
+		ItemStack var11 = par1EntityPlayer.inventory.getCurrentItem();
+		modelMain.setCapsValue(caps_heldItemRight, var11 != null ? 1 : 0);
+		
+		if (var11 != null && par1EntityPlayer.getItemInUseCount() > 0) {
+			EnumAction var12 = var11.getItemUseAction();
+			
+			if (var12 == EnumAction.block) {
+				modelMain.setCapsValue(caps_heldItemRight, 3);
+			} else if (var12 == EnumAction.bow) {
+				modelMain.setCapsValue(caps_aimedBow, true);
+			}
 		}
-		modelArmorChestplate.isRiding = modelArmor.isRiding = modelBipedMain.isRiding = entityplayer
-				.isRiding();
-		if (entityplayer.isRiding()) {
-			d1 += 0.5D;
-		}
-		super.renderPlayer(entityplayer, d, d1 - 0.2D, d2, f, f1);
-		modelArmorChestplate.isRiding = modelArmor.isRiding = modelBipedMain.isRiding = false;
-		;
+		
+		modelMain.setCapsValue(caps_isSneak, par1EntityPlayer.isSneaking());
+		double var14 = par4 - (double)textureBox.getYOffset();
+		
+//		if (par1EntityPlayer.isSneaking() && !(par1EntityPlayer instanceof EntityPlayerSP)) {
+//			var14 -= 0.125D;
+//		}
+		
+		super.doRenderLiving(par1EntityPlayer, par2, var14, par6, par8, par9);
+		modelMain.setCapsValue(caps_aimedBow, false);
+		modelMain.setCapsValue(caps_isSneak, false);
+		modelMain.setCapsValue(caps_heldItemRight, 0);
 	}
+
+	@Override
+	protected void renderSpecials(EntityPlayer par1EntityPlayer, float par2) {
+		float var3 = 1.0F;
+		GL11.glColor3f(var3, var3, var3);
+//		super.renderEquippedItems(par1EntityPlayer, par2);
+		renderArrowsStuckInEntity(par1EntityPlayer, par2);
+		
+		modelMain.renderItems(par1EntityPlayer, this);
+/*
+		ItemStack var4 = par1EntityPlayer.inventory.armorItemInSlot(3);
+
+		if (var4 != null) {
+			GL11.glPushMatrix();
+			this.modelBipedMain.bipedHead.postRender(0.0625F);
+			float var5;
+			
+			if (var4.getItem().itemID < 256) {
+				if (RenderBlocks.renderItemIn3d(Block.blocksList[var4.itemID].getRenderType())) {
+					var5 = 0.625F;
+					GL11.glTranslatef(0.0F, -0.25F, 0.0F);
+					GL11.glRotatef(90.0F, 0.0F, 1.0F, 0.0F);
+					GL11.glScalef(var5, -var5, -var5);
+				}
+				
+				this.renderManager.itemRenderer.renderItem(par1EntityPlayer, var4, 0);
+			} else if (var4.getItem().itemID == Item.skull.itemID) {
+				var5 = 1.0625F;
+				GL11.glScalef(var5, -var5, -var5);
+				String var6 = "";
+				
+				if (var4.hasTagCompound() && var4.getTagCompound().hasKey("SkullOwner")) {
+					var6 = var4.getTagCompound().getString("SkullOwner");
+				}
+				
+				TileEntitySkullRenderer.skullRenderer.func_82393_a(-0.5F, 0.0F, -0.5F, 1, 180.0F, var4.getItemDamage(), var6);
+			}
+			
+			GL11.glPopMatrix();
+		}
+
+        float var7;
+        float var8;
+
+
+        float var11;
+
+
+        ItemStack var21 = par1EntityPlayer.inventory.getCurrentItem();
+
+        if (var21 != null)
+        {
+            GL11.glPushMatrix();
+            this.modelBipedMain.bipedRightArm.postRender(0.0625F);
+            GL11.glTranslatef(-0.0625F, 0.4375F, 0.0625F);
+
+            if (par1EntityPlayer.fishEntity != null)
+            {
+                var21 = new ItemStack(Item.stick);
+            }
+
+            EnumAction var23 = null;
+
+            if (par1EntityPlayer.getItemInUseCount() > 0)
+            {
+                var23 = var21.getItemUseAction();
+            }
+
+            if (var21.itemID < 256 && RenderBlocks.renderItemIn3d(Block.blocksList[var21.itemID].getRenderType()))
+            {
+                var7 = 0.5F;
+                GL11.glTranslatef(0.0F, 0.1875F, -0.3125F);
+                var7 *= 0.75F;
+                GL11.glRotatef(20.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+                GL11.glScalef(-var7, -var7, var7);
+            }
+            else if (var21.itemID == Item.bow.itemID)
+            {
+                var7 = 0.625F;
+                GL11.glTranslatef(0.0F, 0.125F, 0.3125F);
+                GL11.glRotatef(-20.0F, 0.0F, 1.0F, 0.0F);
+                GL11.glScalef(var7, -var7, var7);
+                GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+            }
+            else if (Item.itemsList[var21.itemID].isFull3D())
+            {
+                var7 = 0.625F;
+
+                if (Item.itemsList[var21.itemID].shouldRotateAroundWhenRendering())
+                {
+                    GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
+                    GL11.glTranslatef(0.0F, -0.125F, 0.0F);
+                }
+
+                if (par1EntityPlayer.getItemInUseCount() > 0 && var23 == EnumAction.block)
+                {
+                    GL11.glTranslatef(0.05F, 0.0F, -0.1F);
+                    GL11.glRotatef(-50.0F, 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(-10.0F, 1.0F, 0.0F, 0.0F);
+                    GL11.glRotatef(-60.0F, 0.0F, 0.0F, 1.0F);
+                }
+
+                GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
+                GL11.glScalef(var7, -var7, var7);
+                GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
+            }
+            else
+            {
+                var7 = 0.375F;
+                GL11.glTranslatef(0.25F, 0.1875F, -0.1875F);
+                GL11.glScalef(var7, var7, var7);
+                GL11.glRotatef(60.0F, 0.0F, 0.0F, 1.0F);
+                GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
+                GL11.glRotatef(20.0F, 0.0F, 0.0F, 1.0F);
+            }
+
+            float var10;
+            int var27;
+            float var28;
+
+            if (var21.getItem().requiresMultipleRenderPasses())
+            {
+                for (var27 = 0; var27 <= 1; ++var27)
+                {
+                    int var26 = var21.getItem().getColorFromItemStack(var21, var27);
+                    var28 = (float)(var26 >> 16 & 255) / 255.0F;
+                    var10 = (float)(var26 >> 8 & 255) / 255.0F;
+                    var11 = (float)(var26 & 255) / 255.0F;
+                    GL11.glColor4f(var28, var10, var11, 1.0F);
+                    this.renderManager.itemRenderer.renderItem(par1EntityPlayer, var21, var27);
+                }
+            }
+            else
+            {
+                var27 = var21.getItem().getColorFromItemStack(var21, 0);
+                var8 = (float)(var27 >> 16 & 255) / 255.0F;
+                var28 = (float)(var27 >> 8 & 255) / 255.0F;
+                var10 = (float)(var27 & 255) / 255.0F;
+                GL11.glColor4f(var8, var28, var10, 1.0F);
+                this.renderManager.itemRenderer.renderItem(par1EntityPlayer, var21, 0);
+            }
+
+            GL11.glPopMatrix();
+        }
+        */
+    }
+
+	@Override
+	public void renderFirstPersonArm(EntityPlayer par1EntityPlayer) {
+		float var2 = 1.0F;
+		GL11.glColor3f(var2, var2, var2);
+		modelMain.setCapsValue(caps_onGround, 0.0F);
+		modelMain.setRotationAngles(0.0F, 0.0F, 0.0F, 0.0F, 0.0F, 0.0625F, par1EntityPlayer);
+		
+//		this.modelBipedMain.bipedRightArm.render(0.0625F);
+	}
+
+	@Override
+	protected void renderArrowsStuckInEntity(EntityLiving par1EntityLiving, float par2) {
+		MMM_Client.renderArrowsStuckInEntity(par1EntityLiving, par2, this, modelMain.modelInner);
+	}
+
+/*
+
 
 	@Override
 	protected void renderSpecials(EntityPlayer par1EntityPlayer, float par2) {

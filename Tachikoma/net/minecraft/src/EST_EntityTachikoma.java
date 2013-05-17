@@ -177,8 +177,10 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	public void setTexturePackName(MMM_TextureBox[] pTextureBox) {
 		// Client
 		textureBox[0] = pTextureBox[0];
-		texture = MMM_TextureManager.getTextureName(pTextureBox[0], color);
-		textureEye = MMM_TextureManager.getTextureName(pTextureBox[0], 0x60 | color);
+//		texture = MMM_TextureManager.getTextureName(pTextureBox[0], color);
+//		textureEye = MMM_TextureManager.getTextureName(pTextureBox[0], 0x60 | color);
+		texture = pTextureBox[0].getTextureName(color);
+		textureEye = pTextureBox[0].getTextureName(0x60 | color);
 	}
 
 }

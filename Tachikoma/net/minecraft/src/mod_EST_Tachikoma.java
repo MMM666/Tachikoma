@@ -21,10 +21,13 @@ public class mod_EST_Tachikoma extends BaseMod {
 	public static String HurtSound = "mob.spider";
 	@MLProp
 	public static String DeathSound = "mob.spiderdeath";
-	@MLProp(info = "PlayerSkin replace is enabled when.")
-	public static String playerSkin = "/mob/Tachikoma/CV_Tachikoma/Tachikoma_3b.png";
-	@MLProp(info = "using textures.")
+	@MLProp(info = "PlayerModel replace is enabled when.")
+	public static String playerModel = "CV_Tachikoma";
+	@MLProp(info = "PlayerModel color.")
+	public static int playerColor = 0;
+	@MLProp(info = "using spider's textures.")
 	public static String selectModels = "CV_Tachikoma,OptCam_Tachikoma";
+	@MLProp(info = "default spider's textures.")
 	public static String defaultModel = "CV_Tachikoma";
 	@MLProp
 	public static boolean isArrowsStuck = true;
