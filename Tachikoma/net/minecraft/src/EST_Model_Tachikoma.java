@@ -158,7 +158,7 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 	}
 	
 	@Override
-	public int showArmorParts(int parts) {
+	public int showArmorParts(int parts, int index) {
 		// äZÇÃï\é¶óp
 		boolean f;
 		// äï
@@ -228,9 +228,10 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		bipedRightArm.rotateAngleX -= 0.5F;
 		bipedLeftArm.rotateAngleX -= 0.5F;
 		
-		if (onGround > -9990F && !aimedBow) {
+		float lonGround = Math.max(onGrounds[0], onGrounds[1]);
+		if (lonGround > -9990F && !aimedBow) {
 			// òrêUÇË
-			float f6 = onGround;
+			float f6 = lonGround;
 			bipedBody.rotateAngleY = mh_sin(mh_sqrt_float(f6) * 3.141593F * 2.0F) * 0.2F;
 			
 			bipedRightArm.rotationPointZ = mh_sin(bipedBody.rotateAngleY) * 4F;// -6F;
@@ -242,16 +243,16 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 			bipedLeftArm.rotateAngleY += bipedBody.rotateAngleY;
 			bipedLeftArm.rotateAngleX += bipedBody.rotateAngleY;
 			
-			f6 = 1.0F - onGround;
+			f6 = 1.0F - lonGround;
 			f6 *= f6;
 			f6 *= f6;
 			f6 = 1.0F - f6;
 			float f7 = mh_sin(f6 * 3.141593F);
-			float f8 = mh_sin(onGround * 3.141593F)
+			float f8 = mh_sin(lonGround * 3.141593F)
 					* -(bipedHead.rotateAngleX - 0.7F) * 0.75F;
 			bipedRightArm.rotateAngleX -= (double) f7 * 1.2D + (double) f8;
 			bipedRightArm.rotateAngleY += bipedBody.rotateAngleY * 2.0F;
-			bipedRightArm.rotateAngleZ = mh_sin(onGround * 3.141593F) * -0.4F;
+			bipedRightArm.rotateAngleZ = mh_sin(lonGround * 3.141593F) * -0.4F;
 		}
 		
 		if (isSneak) {
@@ -317,14 +318,14 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		} else {
 			if (aimedBow) {
 				// ã|ç\Ç¶
-				float f6 = mh_sin(onGround * 3.141593F);
-				float f7 = mh_sin((1.0F - (1.0F - onGround) * (1.0F - onGround)) * 3.141593F);
+				float f6 = mh_sin(lonGround * 3.141593F);
+				float f7 = mh_sin((1.0F - (1.0F - lonGround) * (1.0F - lonGround)) * 3.141593F);
 				bipedRightArm.rotateAngleZ = 0.0F;
 				bipedLeftArm.rotateAngleZ = 0.0F;
-				bipedRightArm.rotateAngleY = -(0.1F - f6 * 0.6F);
-				bipedLeftArm.rotateAngleY = 0.1F - f6 * 0.6F;
-				bipedRightArm.rotateAngleX = -1.570796F;
-				bipedLeftArm.rotateAngleX = -1.570796F;
+				bipedRightArm.rotateAngleY = -(0.1F - f6 * 0.6F) + bipedHead.rotateAngleY;
+				bipedLeftArm.rotateAngleY = 0.1F - f6 * 0.6F + bipedHead.rotateAngleY;
+				bipedRightArm.rotateAngleX = -1.570796F + bipedHead.rotateAngleX;
+				bipedLeftArm.rotateAngleX = -1.570796F + bipedHead.rotateAngleX;
 				bipedRightArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
 				bipedLeftArm.rotateAngleX -= f6 * 1.2F - f7 * 0.4F;
 				bipedRightArm.rotateAngleZ += mh_cos(pTicksExisted * 0.09F) * 0.05F + 0.05F;
