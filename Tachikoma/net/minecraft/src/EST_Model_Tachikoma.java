@@ -48,7 +48,8 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		bipedHead.setRotationPoint(0F, -2F, -4F);
 		bipedHead.addChild(HeadMount);
 		bipedHead.addChild(HeadTop);
-		
+		HeadTop.setRotationPoint(0F, -7F, 0F);
+
 		head1 = new MMM_ModelRenderer(this, 0, 0);
 		head1.addBox(-3.5F, -3.5F, -3.5F, 7, 7, 7, psize - 1.9F);
 		head1.setRotationPoint(4F, -2F, 1F);
@@ -344,6 +345,7 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		}
 
 		// bipedRightArm.rotationPointZ = 0F;
+
 	}
 
 	@Override
@@ -363,9 +365,9 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		if (lcamo || lplant) {
 			HeadMount.loadMatrix();
 			if (lplant) {
-				HeadTop.renderItemsHead(this, pEntityCaps);
+				HeadTop.loadMatrix().renderItemsHead(this, pEntityCaps);
 			} else {
-				HeadMount.renderItemsHead(this, pEntityCaps);
+				HeadMount.loadMatrix().renderItemsHead(this, pEntityCaps);
 			}
 		}
 		
