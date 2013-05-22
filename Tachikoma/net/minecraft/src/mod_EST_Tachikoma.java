@@ -55,7 +55,7 @@ public class mod_EST_Tachikoma extends BaseMod {
 	@Override
 	public void load() {
 		// MMMLibのRevisionチェック
-		MMM_Helper.checkRevision("1");
+		MMM_Helper.checkRevision("2");
 		
 		// タチコマ系のモデルを読み込み
 		textures = selectModels.split(",");
