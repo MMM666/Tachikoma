@@ -19,7 +19,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		String lname = mod_EST_Tachikoma.getRandomTexture();
 //		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
 		// É_É~Å[ê›íË
-		textureBox[0] = MMM_TextureManager.getTextureBox(lname);
+		textureBox[0] = MMM_TextureManager.instance.getTextureBox(lname);
 		color = textureBox[0].getRandomContractColor(rand);
 	}
 
@@ -34,8 +34,8 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	public void initCreature() {
 		super.initCreature();
 		String lname = mod_EST_Tachikoma.getRandomTexture();
-		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
-		textureBox[0] = MMM_TextureManager.getTextureBoxServer(textureIndex[0]);
+		textureIndex[0] = MMM_TextureManager.instance.getIndexTextureBoxServer(this, lname);
+		textureBox[0] = MMM_TextureManager.instance.getTextureBoxServer(textureIndex[0]);
 		color = textureBox[0].getRandomContractColor(rand);
 		setTexturePackIndex(color, textureIndex);
 	}
@@ -55,7 +55,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		if (lname == null || lname.isEmpty()) {
 			lname = mod_EST_Tachikoma.defaultModel;
 		}
-		textureIndex[0] = MMM_TextureManager.getIndexTextureBoxServer(this, lname);
+		textureIndex[0] = MMM_TextureManager.instance.getIndexTextureBoxServer(this, lname);
 		setTexturePackIndex(color, textureIndex);
 	}
 
@@ -138,7 +138,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 				lflag = true;
 			}
 			if (lflag) {
-				MMM_TextureManager.postGetTexturePack(this, textureIndex);
+				MMM_TextureManager.instance.postGetTexturePack(this, textureIndex);
 			}
 		} else {
 			boolean laimedBow = getAITarget() != null || getEntityToAttack() != null;
@@ -166,7 +166,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		// Server
 		color = pColor;
 		textureIndex[0] = pIndex[0];
-		textureBox[0] = MMM_TextureManager.getTextureBoxServer(textureIndex[0]);
+		textureBox[0] = MMM_TextureManager.instance.getTextureBoxServer(textureIndex[0]);
 		dataWatcher.updateObject(19, (byte)color);
 		dataWatcher.updateObject(20, textureIndex[0]);
 //		setSize(-1, -1);

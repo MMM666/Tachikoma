@@ -218,13 +218,13 @@ public class EST_Model_Tachikoma extends MMM_ModelMultiMMMBase {
 		LeftLeg1.rotateAngleX += 0.474F;
 		RightLeg1.rotateAngleX += 0.474F;
 		
-		if (heldItemLeft != 0) {
+		if (heldItem[1] != 0) {
 			bipedLeftArm.rotateAngleX =
-					bipedLeftArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItemLeft;
+					bipedLeftArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItem[1];
 		}
-		if (heldItemRight != 0) {
+		if (heldItem[0] != 0) {
 			bipedRightArm.rotateAngleX =
-					bipedRightArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItemRight;
+					bipedRightArm.rotateAngleX * 0.5F - 0.3141593F * (float) heldItem[0];
 		}
 		bipedRightArm.rotateAngleX -= 0.5F;
 		bipedLeftArm.rotateAngleX -= 0.5F;

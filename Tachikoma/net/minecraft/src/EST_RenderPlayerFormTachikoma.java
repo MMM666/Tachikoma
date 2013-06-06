@@ -16,7 +16,7 @@ public class EST_RenderPlayerFormTachikoma extends RenderPlayer {
 		// ƒ‚ƒfƒ‹‚Ì’u‚«Š·‚¦
 		modelMain = new MMM_ModelBaseDuo(this);
 		modelArmor = new MMM_ModelBaseDuo(this);
-		textureBox = MMM_TextureManager.getTextureBox(mod_EST_Tachikoma.playerModel);
+		textureBox = MMM_TextureManager.instance.getTextureBox(mod_EST_Tachikoma.playerModel);
 		modelMain.modelInner = textureBox.models[0];
 		modelMain.textureInner = new String[] {textureBox.getTextureName(mod_EST_Tachikoma.playerColor), "", "", ""};
 		modelMain.capsLink = modelArmor;

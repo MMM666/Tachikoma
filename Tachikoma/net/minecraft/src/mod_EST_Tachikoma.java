@@ -49,18 +49,18 @@ public class mod_EST_Tachikoma extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.2-1";
+		return "1.5.2-2";
 	}
 
 	@Override
 	public void load() {
 		// MMMLibのRevisionチェック
-		MMM_Helper.checkRevision("2");
+		MMM_Helper.checkRevision("4");
 		
 		// タチコマ系のモデルを読み込み
 		textures = selectModels.split(",");
 		MMM_FileManager.getModFile("Tachikoma", "Tachikoma");
-		MMM_TextureManager.addSearch("Tachikoma", "/mob/Tachikoma/", "EST_Model_");
+		MMM_TextureManager.instance.addSearch("Tachikoma", "/mob/Tachikoma/", "EST_Model_");
 		if (isSpiderForm) {
 			// 置換え
 			MMM_Helper.replaceEntityList(EntitySpider.class, EST_EntityTachikoma.class);
@@ -70,7 +70,7 @@ public class mod_EST_Tachikoma extends BaseMod {
 	@Override
 	public void modsLoaded() {
 		// デフォルトモデルの設定
-		MMM_TextureManager.setDefaultTexture(EST_EntityTachikoma.class, MMM_TextureManager.getTextureBox(defaultModel));
+		MMM_TextureManager.instance.setDefaultTexture(EST_EntityTachikoma.class, MMM_TextureManager.instance.getTextureBox(defaultModel));
 	}
 
 	@Override
