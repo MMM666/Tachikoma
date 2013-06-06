@@ -52,7 +52,7 @@ public class EST_RenderTachikoma extends RenderSpider {
 	}
 
 	public void doRenderTachikoma(EST_EntityTachikoma entity, double d, double d1, double d2, float f, float f1) {
-		modelMain.modelInner = ((MMM_TextureBox)entity.textureBox[0]).models[0];
+		modelMain.modelInner = MMM_TextureManager.instance.getTextureBox(entity.textureBox[0]).models[0];
 		modelMain.setCapsValue(caps_aimedBow, entity.getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, entity.isSneaking());
 		modelMain.setCapsValue(caps_isRiding, entity.isRiding());
