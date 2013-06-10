@@ -25,7 +25,7 @@ public class EST_RenderTachikoma extends RenderSpider {
 		if (par2 != 0) {
 			return -1;
 		} else {
-			String ls = ((EST_EntityTachikoma)par1EntitySpider).textureEye;
+			String ls = ((EST_EntityTachikoma)par1EntitySpider).textures[1];
 			if (ls != null) {
 				this.loadTexture(ls);
 				float var4 = 1.0F;

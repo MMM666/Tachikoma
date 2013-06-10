@@ -49,13 +49,13 @@ public class mod_EST_Tachikoma extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.2-2";
+		return "1.5.2-3";
 	}
 
 	@Override
 	public void load() {
 		// MMMLibのRevisionチェック
-		MMM_Helper.checkRevision("4");
+		MMM_Helper.checkRevision("5");
 		
 		// タチコマ系のモデルを読み込み
 		textures = selectModels.split(",");

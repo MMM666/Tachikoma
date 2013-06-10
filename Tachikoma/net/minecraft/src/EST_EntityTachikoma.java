@@ -9,7 +9,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 
 	public int textureIndex[] = new int[1];
 	public MMM_TextureBoxBase textureBox[] = new MMM_TextureBoxBase[1];
-	public String textureEye;
+	public String textures[] = new String[] {"", ""};
 	public int color;
 
 
@@ -21,6 +21,8 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		// É_É~Å[ê›íË
 		textureBox[0] = MMM_TextureManager.instance.getTextureBox(lname);
 		color = textureBox[0].getRandomContractColor(rand);
+		textures[0] = ((MMM_TextureBox)textureBox[0]).getTextureName(color);
+		textures[1] = ((MMM_TextureBox)textureBox[0]).getTextureName(color + MMM_TextureManager.tx_eye);
 	}
 
 	@Override
@@ -60,6 +62,11 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	}
 
 	@Override
+	public String getTexture() {
+		return textures[0];
+	}
+
+	@Override
 	protected String getLivingSound() {
 		return mod_EST_Tachikoma.LivingSound;
 	}
@@ -90,8 +97,8 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 			double d = Math.cos(d2) * 0.25D;
 			double d1 = Math.sin(d2) * 0.25D;
 			
-			riddenByEntity.setPosition(posX + d, posY + getMountedYOffset()
-					+ riddenByEntity.getYOffset(), posZ + d1);
+			riddenByEntity.setPosition(posX + d,
+					posY + getMountedYOffset() + riddenByEntity.getYOffset(), posZ + d1);
 			return;
 		}
 	}
@@ -177,10 +184,57 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	public void setTexturePackName(MMM_TextureBox[] pTextureBox) {
 		// Client
 		textureBox[0] = pTextureBox[0];
-//		texture = MMM_TextureManager.getTextureName(pTextureBox[0], color);
-//		textureEye = MMM_TextureManager.getTextureName(pTextureBox[0], 0x60 | color);
-		texture = pTextureBox[0].getTextureName(color);
-		textureEye = pTextureBox[0].getTextureName(0x60 | color);
+		textures[0] = pTextureBox[0].getTextureName(color);
+		textures[1] = pTextureBox[0].getTextureName(0x60 | color);
+	}
+
+	@Override
+	public void setColor(int pColor) {
+		color = pColor;
+	}
+
+	@Override
+	public int getColor() {
+		return color;
+	}
+
+	@Override
+	public void setContract(boolean pContract) {
+	}
+
+	@Override
+	public boolean isContract() {
+		return true;
+	}
+
+	@Override
+	public void setTextureBox(MMM_TextureBoxBase[] pTextureBox) {
+		textureBox = pTextureBox;
+	}
+
+	@Override
+	public MMM_TextureBoxBase[] getTextureBox() {
+		return textureBox;
+	}
+
+	@Override
+	public void setTextureIndex(int[] pTextureIndex) {
+		textureIndex = pTextureIndex;
+	}
+
+	@Override
+	public int[] getTextureIndex() {
+		return textureIndex;
+	}
+
+	@Override
+	public void setTextures(int pIndex, String[] pNames) {
+		if (pIndex == 0) textures = pNames;
+	}
+
+	@Override
+	public String[] getTextures(int pIndex) {
+		return pIndex == 0 ? textures : null;
 	}
 
 }
