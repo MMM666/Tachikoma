@@ -49,13 +49,13 @@ public class mod_EST_Tachikoma extends BaseMod {
 
 	@Override
 	public String getVersion() {
-		return "1.5.2-3";
+		return "1.5.2-4";
 	}
 
 	@Override
 	public void load() {
 		// MMMLibのRevisionチェック
-		MMM_Helper.checkRevision("5");
+		MMM_Helper.checkRevision("7");
 		
 		// タチコマ系のモデルを読み込み
 		textures = selectModels.split(",");
@@ -81,10 +81,10 @@ public class mod_EST_Tachikoma extends BaseMod {
 				System.out.println("Tachikoma replace Spider renderer.");
 			}
 			
-			if (isPlayerForm) {
-				map.put(net.minecraft.src.EntityPlayerSP.class, new EST_RenderPlayerFormTachikoma());
-				System.out.println("Tachikoma replace Player renderer.");
-			}
+//			if (isPlayerForm) {
+//				map.put(net.minecraft.src.EntityPlayerSP.class, new EST_RenderPlayerFormTachikoma());
+//				System.out.println("Tachikoma replace Player renderer.");
+//			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

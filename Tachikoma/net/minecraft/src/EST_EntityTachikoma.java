@@ -11,6 +11,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	public MMM_TextureBoxBase textureBox[] = new MMM_TextureBoxBase[1];
 	public String textures[] = new String[] {"", ""};
 	public int color;
+	public MMM_IModelCaps entityCaps;
 
 
 	public EST_EntityTachikoma(World world) {
@@ -23,6 +24,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		color = textureBox[0].getRandomContractColor(rand);
 		textures[0] = ((MMM_TextureBox)textureBox[0]).getTextureName(color);
 		textures[1] = ((MMM_TextureBox)textureBox[0]).getTextureName(color + MMM_TextureManager.tx_eye);
+		entityCaps = new MMM_EntityCaps(this);
 	}
 
 	@Override
@@ -84,7 +86,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	@Override
 	public double getMountedYOffset() {
 		// ìãèÊçÇ
-		return textureBox[0].getMountedYOffset();
+		return textureBox[0].getMountedYOffset(entityCaps);
 	}
 
 	@Override
@@ -177,7 +179,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		dataWatcher.updateObject(19, (byte)color);
 		dataWatcher.updateObject(20, textureIndex[0]);
 //		setSize(-1, -1);
-		setSize(textureBox[0].getWidth(), textureBox[0].getHeight());
+		setSize(textureBox[0].getWidth(entityCaps), textureBox[0].getHeight(entityCaps));
 	}
 
 	@Override
