@@ -25,9 +25,9 @@ public class EST_RenderTachikoma extends RenderSpider {
 		if (par2 != 0) {
 			return -1;
 		} else {
-			String ls = ((EST_EntityTachikoma)par1EntitySpider).textures[1];
+			ResourceLocation ls = ((EST_EntityTachikoma)par1EntitySpider).textures[1];
 			if (ls != null) {
-				this.loadTexture(ls);
+				func_110776_a(ls);
 				float var4 = 1.0F;
 				GL11.glEnable(GL11.GL_BLEND);
 				GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -70,14 +70,19 @@ public class EST_RenderTachikoma extends RenderSpider {
 	}
 
 	@Override
-	protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2) {
+	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
 		super.renderEquippedItems(par1EntityLiving, par2);
 		renderArrowsStuckInEntity(par1EntityLiving, par2);
 	}
 
 	@Override
-	protected void renderArrowsStuckInEntity(EntityLiving par1EntityLiving, float par2) {
+	protected void renderArrowsStuckInEntity(EntityLivingBase par1EntityLiving, float par2) {
 		MMM_Client.renderArrowsStuckInEntity(par1EntityLiving, par2, this, modelMain.modelInner);
+	}
+
+	@Override
+	protected ResourceLocation func_110775_a(Entity par1Entity) {
+		return ((EST_EntityTachikoma)par1Entity).textures[0];
 	}
 
 }

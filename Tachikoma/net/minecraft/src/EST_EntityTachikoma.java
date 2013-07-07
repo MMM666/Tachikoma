@@ -9,7 +9,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 
 	public int textureIndex[] = new int[1];
 	public MMM_TextureBoxBase textureBox[] = new MMM_TextureBoxBase[1];
-	public String textures[] = new String[] {"", ""};
+	public ResourceLocation textures[] = new ResourceLocation[] {null, null};
 	public int color;
 	public MMM_IModelCaps entityCaps;
 
@@ -35,13 +35,13 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	}
 
 	@Override
-	public void initCreature() {
-		super.initCreature();
+	public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData) {
 		String lname = mod_EST_Tachikoma.getRandomTexture();
 		textureIndex[0] = MMM_TextureManager.instance.getIndexTextureBoxServer(this, lname);
 		textureBox[0] = MMM_TextureManager.instance.getTextureBoxServer(textureIndex[0]);
 		color = textureBox[0].getRandomContractColor(rand);
 		setTexturePackIndex(color, textureIndex);
+		return super.func_110161_a(par1EntityLivingData);
 	}
 
 	@Override
@@ -57,15 +57,10 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		color = nbttagcompound.getByte("TextureColor");
 		String lname = nbttagcompound.getString("TextureName");
 		if (lname == null || lname.isEmpty()) {
-			lname = mod_EST_Tachikoma.defaultModel;
+			lname = mod_EST_Tachikoma.textures[0];
 		}
 		textureIndex[0] = MMM_TextureManager.instance.getIndexTextureBoxServer(this, lname);
 		setTexturePackIndex(color, textureIndex);
-	}
-
-	@Override
-	public String getTexture() {
-		return textures[0];
 	}
 
 	@Override
@@ -117,7 +112,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 
 	@Override
 	public boolean interact(EntityPlayer entityplayer) {
-		if (!super.interact(entityplayer)) {
+		if (mod_EST_Tachikoma.isRideSpider && !super.interact(entityplayer)) {
 			if (!worldObj.isRemote) {
 				// RIDE-ON
 				if (getAITarget() != entityplayer || getEntityToAttack() != entityplayer) {
@@ -178,8 +173,10 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 		textureBox[0] = MMM_TextureManager.instance.getTextureBoxServer(textureIndex[0]);
 		dataWatcher.updateObject(19, (byte)color);
 		dataWatcher.updateObject(20, textureIndex[0]);
-//		setSize(-1, -1);
-		setSize(textureBox[0].getWidth(entityCaps), textureBox[0].getHeight(entityCaps));
+		if (mod_EST_Tachikoma.changeMobSize) {
+//			setSize(-1, -1);
+			setSize(textureBox[0].getWidth(entityCaps), textureBox[0].getHeight(entityCaps));
+		}
 	}
 
 	@Override
@@ -230,12 +227,12 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	}
 
 	@Override
-	public void setTextures(int pIndex, String[] pNames) {
+	public void setTextures(int pIndex, ResourceLocation[] pNames) {
 		if (pIndex == 0) textures = pNames;
 	}
 
 	@Override
-	public String[] getTextures(int pIndex) {
+	public ResourceLocation[] getTextures(int pIndex) {
 		return pIndex == 0 ? textures : null;
 	}
 
