@@ -25,7 +25,7 @@ public class EST_RenderTachikoma extends RenderSpider {
 		if (par2 != 0) {
 			return -1;
 		} else {
-			ResourceLocation ls = ((EST_EntityTachikoma)par1EntitySpider).textures[1];
+			ResourceLocation ls = ((EST_EntityTachikoma)par1EntitySpider).getTextureData().textures[0][1];
 			if (ls != null) {
 				func_110776_a(ls);
 				float var4 = 1.0F;
@@ -52,7 +52,8 @@ public class EST_RenderTachikoma extends RenderSpider {
 	}
 
 	public void doRenderTachikoma(EST_EntityTachikoma entity, double d, double d1, double d2, float f, float f1) {
-		modelMain.modelInner = MMM_TextureManager.instance.getTextureBox(entity.textureBox[0]).models[0];
+		modelMain.modelInner = entity.textureData.textureModel[0];
+//		modelMain.modelInner = MMM_TextureManager.instance.getTextureBox(entity.textureBox[0]).models[0];
 		modelMain.setCapsValue(caps_aimedBow, entity.getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, entity.isSneaking());
 		modelMain.setCapsValue(caps_isRiding, entity.isRiding());
@@ -82,7 +83,7 @@ public class EST_RenderTachikoma extends RenderSpider {
 
 	@Override
 	protected ResourceLocation func_110775_a(Entity par1Entity) {
-		return ((EST_EntityTachikoma)par1Entity).textures[0];
+		return ((EST_EntityTachikoma)par1Entity).textureData.textures[0][0];
 	}
 
 }
