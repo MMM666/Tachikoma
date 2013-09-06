@@ -5,11 +5,11 @@ import org.lwjgl.opengl.GL11;
 
 public class EST_RenderTachikoma extends RenderSpider {
 
-	public MMM_ModelBaseDuo modelMain;
+	public MMM_ModelBaseSolo modelMain;
 	
 	public EST_RenderTachikoma() {
 		super();
-		modelMain = new MMM_ModelBaseDuo(this);
+		modelMain = new MMM_ModelBaseSolo(this);
 		modelMain.isModelAlphablend = true;
 		mainModel = modelMain;
 		setRenderPassModel(modelMain);
@@ -52,7 +52,17 @@ public class EST_RenderTachikoma extends RenderSpider {
 	}
 
 	public void doRenderTachikoma(EST_EntityTachikoma entity, double d, double d1, double d2, float f, float f1) {
-		modelMain.modelInner = entity.textureData.textureModel[0];
+		if (entity instanceof MMM_ITextureEntity) {
+			MMM_ITextureEntity ltentity = (MMM_ITextureEntity)entity;
+			modelMain.model = ltentity.getTextureData().textureModel[0];
+			modelMain.textures = ltentity.getTextures(0);
+		}
+		modelMain.setEntityCaps(entity.entityCaps);
+		modelMain.setRender(this);
+		modelMain.showAllParts();
+		modelMain.lighting = entity.getBrightnessForRender(f);
+		
+//		modelMain.model = entity.textureData.textureModel[0];
 //		modelMain.modelInner = MMM_TextureManager.instance.getTextureBox(entity.textureBox[0]).models[0];
 		modelMain.setCapsValue(caps_aimedBow, entity.getAimedBow());
 		modelMain.setCapsValue(caps_isSneak, entity.isSneaking());
@@ -72,18 +82,34 @@ public class EST_RenderTachikoma extends RenderSpider {
 
 	@Override
 	protected void renderEquippedItems(EntityLivingBase par1EntityLiving, float par2) {
-		super.renderEquippedItems(par1EntityLiving, par2);
+		// ハードポイントの描画
+		modelMain.renderItems(par1EntityLiving, this);
 		renderArrowsStuckInEntity(par1EntityLiving, par2);
 	}
 
 	@Override
 	protected void renderArrowsStuckInEntity(EntityLivingBase par1EntityLiving, float par2) {
-		MMM_Client.renderArrowsStuckInEntity(par1EntityLiving, par2, this, modelMain.modelInner);
+		MMM_Client.renderArrowsStuckInEntity(par1EntityLiving, par2, this, modelMain.model);
+	}
+
+
+	@Override
+	protected void renderModel(EntityLivingBase par1EntityLiving, float par2,
+			float par3, float par4, float par5, float par6, float par7) {
+		if (!par1EntityLiving.isInvisible()) {
+			modelMain.setArmorRendering(true);
+		} else {
+			modelMain.setArmorRendering(false);
+		}
+		// アイテムのレンダリング位置を獲得するためrenderを呼ぶ必要がある
+		mainModel.render(par1EntityLiving, par2, par3, par4, par5, par6, par7);
 	}
 
 	@Override
 	protected ResourceLocation func_110775_a(Entity par1Entity) {
-		return ((EST_EntityTachikoma)par1Entity).textureData.textures[0][0];
+		// テクスチャリソースを返すところだけれど、基本的に使用しない。
+		return null;
+//		return ((EST_EntityTachikoma)par1Entity).textureData.textures[0][0];
 	}
 
 }
