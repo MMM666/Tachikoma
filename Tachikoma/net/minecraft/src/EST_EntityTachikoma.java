@@ -31,7 +31,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 	@Override
 	public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData) {
 		String lname = mod_EST_Tachikoma.getRandomTexture();
-		textureData.setTextureInit(lname);
+		textureData.setTextureInitServer(lname);
 		setTexturePackIndex(textureData.getTextureBox()[0].getRandomContractColor(rand), textureData.getTextureIndex());
 		return super.func_110161_a(par1EntityLivingData);
 	}
@@ -57,17 +57,17 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 
 	@Override
 	protected String getLivingSound() {
-		return mod_EST_Tachikoma.LivingSound;
+		return mod_EST_Tachikoma.cfg_LivingSound;
 	}
 
 	@Override
 	protected String getHurtSound() {
-		return mod_EST_Tachikoma.HurtSound;
+		return mod_EST_Tachikoma.cfg_HurtSound;
 	}
 
 	@Override
 	protected String getDeathSound() {
-		return mod_EST_Tachikoma.DeathSound;
+		return mod_EST_Tachikoma.cfg_DeathSound;
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class EST_EntityTachikoma extends EntitySpider implements MMM_ITextureEnt
 
 	@Override
 	public boolean interact(EntityPlayer entityplayer) {
-		if (mod_EST_Tachikoma.isRideSpider && !super.interact(entityplayer)) {
+		if (mod_EST_Tachikoma.cfg_isRideSpider && !super.interact(entityplayer)) {
 			if (!worldObj.isRemote) {
 				// RIDE-ON
 				if (getAITarget() != entityplayer || getEntityToAttack() != entityplayer) {
